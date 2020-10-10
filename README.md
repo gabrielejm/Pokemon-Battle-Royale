@@ -39,4 +39,6 @@ WHEN the modal is closed, a "replay" button will appear which the user can click
 ## APIs used
 
 PokeAPI: https://pokeapi.co/
+BoredAPI: https://www.boredapi.com/?ref=public-apis
+
  
