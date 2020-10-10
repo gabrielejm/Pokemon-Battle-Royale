@@ -1,4 +1,4 @@
-# Project-1
+# Pokemon-Battle-Royale
 
 ## User Story
 
@@ -33,3 +33,5 @@ THE first team (user or AI) to run out of pokemon loses.
 AFTER the game is completed, the user will click an "end game" button. 
 
 THEN the user will be given their total wins/loses via modal. This record will persist if the browser is closed or refreshed. (local storage)
+
+WHEN the modal is closed, a "replay" button will appear which the user can click to play again.
