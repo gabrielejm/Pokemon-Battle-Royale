@@ -7,9 +7,9 @@ THAT compares types, stats, and moves to determine a winner.
 
 ## Acceptance Criteria
 
-WHEN I open the page, I will select 3 Pokemon by typing in Pokemon names.
+WHEN I open the page, the user will be presented with a start or give up button.
 
-WHEN I enter a Pokemon name, an image of the pokemon, stats, moves, and type appear.
+WHEN I start the game, the user can search and select 3 pokemon. When a pokemon is search, its name, image, and type.
 
 THEN I will click a button to add the Pokemon to my team.
 
