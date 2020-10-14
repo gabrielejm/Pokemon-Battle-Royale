@@ -58,5 +58,6 @@ $('#searchbuttonid').on('click', function(){
   //If the user loses, they are presented with a loser message telling them to go do something else using BoredAPI (EX: "You suck at battling, how about you go " + api input + " instead" )
   //along with the users win/lose message, they will be presented with a replay button which will restart the game.
 
+  //extra comment
 
 
