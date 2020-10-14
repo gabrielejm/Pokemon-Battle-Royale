@@ -3,10 +3,33 @@
 
 //task 2:
 //the search button does an ajax call based on the user input.
-//modal pops up showing pokemon name, image, type, stats, a confirm button, and a cancel button.
+//modal pops up showing pokemon name, image, type, attack stat, defense stat, a confirm button, and a cancel button.
 //the user needs to pick 3 pokemon
 //cancel button closes modal, allows user to search more, will not add pokemon to team
+$('#searchbuttonid').on('click', function(){
+  event.preventDefault();
+  var userInput = $('#inputboxid').val();
+  var queryURL = "https://pokeapi.co/api/v2/pokemon/" + userInput;
+  
 
+  $.ajax({
+    url: queryURL,
+    method: "GET"
+  }).then(function(response) {
+    var pokeID = response.held_items.id;
+    var imageURL = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/" + pokeID + ".png";
+    $('#pokemonNameId')
+    $('#pokemonImageId')
+    $('#pokemonTypeId')
+    $('#attackStatId')
+    $('#defenseStatId')
+    
+
+
+
+
+});
+});
 //task 3:
 //if confirm is clicked, current pokemon is added to team, modal closes, takes user back to search bar.
 //progress bar of some sort to show how many pokemon are left to choose.
