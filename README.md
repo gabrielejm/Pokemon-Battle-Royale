@@ -9,30 +9,29 @@ THAT compares types, stats, and moves to determine a winner.
 
 WHEN I open the page, the user will be presented with a start or give up button.
 
-WHEN I start the game, the user can search and select 3 pokemon. When a pokemon is search, its name, image, and type.
+WHEN I start the game, the user can search and select 3 pokemon. When a pokemon is searched, its name, image, attack/defense/speed stats, and type appear.
 
 THEN I will click a button to add the Pokemon to my team.
+
+WHEN I add a pokemon to my team, the progress bar will fill 1/3.
 
 AFTER I pick my team, the AI will randomly pick 3 pokemon from the PokeAPI.
 
 WHEN I click the start button, THEN the game will start.
 
-WHEN the game starts, my first chosen pokemon will battle the AIs first chosen 
+WHEN the game starts, the users first chosen pokemon will battle the AIs first chosen 
 pokemon. 
 
-WHEN the battle begins, I am presented with a set of buttons for the Pokemons moves.
+WHEN the battle begins, the winning pokemon is determined by comparing speed, attack, and defense stats .
 
-AFTER I select a move, the AI will randomly select a move.
 
-AFTER the user and AI and selected moves, the winner of that battle will be determined based on move picked and pokemon type.
-
-THE winning pokemon stays in the game, and the losing pokemon is eliminated. Then the next pokemon in the eliminated pokemon's team is put into battle vs the previous winner.
+THE winning pokemon stays in the game, and the losing pokemon is eliminated. Both sides are able to pick a pokemon for the next battle from their remaining pokemon.
 
 THE first team (user or AI) to run out of pokemon loses.
 
 AFTER the game is completed, the user will click an "end game" button. 
 
-IF the user loses, they will receive a message from BoredAPI telling them to go do something else.
+WHETHER or not the user wins or loses, they will receive a message from BoredAPI telling them to go do something else.
 
 THEN the user will be given their total wins/loses via modal. This record will persist if the browser is closed or refreshed (local storage).
 
