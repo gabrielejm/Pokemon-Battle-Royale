@@ -1,6 +1,7 @@
 body {
     background: white;
     color: red;
+    text-align: center;
 }
 
 .grid-1 {
@@ -26,6 +27,6 @@ body {
     text-align: center;
 }
 
-.pure-form {
-    margin: 0 auto;
+.searchBar {
+    text-align: center;
 }

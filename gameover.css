@@ -1,0 +1,27 @@
+body {
+    background: white;
+    color: red;
+}
+
+.grid-1 {
+    background: red;
+    margin: 0px auto;            
+    text-align: center;
+    color: white;
+    font-size: 25px;
+    font-weight: bolder;
+}
+
+.grid-2 {
+     background: black;
+     margin: 0px auto;            
+     text-align: center;
+     color: white;
+     font-size: 25px;
+     font-weight: bolder;
+}
+
+.gameOver {
+    text-align: center;
+    color: red;
+}
