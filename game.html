@@ -36,6 +36,15 @@
 <!--List and Search Bar-->
 <div class="beginFight">
     <h2>Choose Your Team:</h2>
+    <div>
+      <div id="pokename"></div>
+      <div id="pokeimage"></div>
+      <div id="poketype"></div>
+      <div id="pokeattack"></div>
+      <div id="pokedefense"></div>
+      <div id="pokespeed"></div>
+    </div>
+
   <!--Image-->
 <img src="https://pngimg.com/uploads/pokemon_logo/pokemon_logo_PNG5.png">
 </div>
@@ -43,9 +52,18 @@
 <!--Search Bar-->
 <form class="pure-form">
     <div class="pure">
-    <input type="text" class="pure-input-rounded" />
-    <button type="submit" class="pure-button">Search</button>
+    <input id="input" type="text" class="pure-input-rounded" />
+    <button id="search-btn" type="submit" class="pure-button">Search</button>
 </div>
 </form>
 
+<!--Buttons to add to team-->
+<div class="flex-parent jc-center">
+
+  <button class="button-xlarge pure-button" id="add-button">Add to Team</button>
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="script.js"></script>
 </body>

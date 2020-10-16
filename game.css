@@ -30,3 +30,19 @@ body {
 .searchBar {
     text-align: center;
 }
+
+.flex-parent {
+    display: flex;
+}
+
+.jc-center {
+    justify-content: center;
+}
+
+#add-button {
+    justify-content: center;
+    background: blue;
+    color: white;
+    padding: 15px;
+    
+}
