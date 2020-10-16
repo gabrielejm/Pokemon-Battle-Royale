@@ -51,7 +51,58 @@ $('#search-btn').on('click', function(){
 //task 4:
 //create an array which holds the AIs possible pokemon choices
 //AFTER the user picks their 3 pokemon, the AI picks 3 pokemon randomly from the array
+var compTeam = []
+var compPokemon1 = $('<div>')
+var compPokemon1Name = $('<p>')
 
+function compTeamCreator() {
+      
+    for (var i = 0; i < 3; i++){
+        randomCompPokemon()
+        
+    }
+    
+}
+
+function randomCompPokemon () {
+    var randomPokemon = Math.floor(Math.random()* Math.floor(892))   
+    var queryURL = "https://pokeapi.co/api/v2/pokemon/" + randomPokemon
+    var name = ''
+    var attack = ''
+    var defense = ''
+    var speed = ''
+    
+    
+    $.ajax({
+        url: queryURL,
+        method: "GET",
+    }).then(function(response) {
+        name = response.forms[0].name;
+        name = name.charAt(0).toUpperCase() + name.slice(1)
+        console.log(name)
+        speed = response.stats[5].base_stat;
+        attack = response.stats[1].base_stat;
+        defense = response.stats[2].base_stat;
+        // var image = response.sprites.other.official-artwork[0]
+    var compPokemon = {
+        'pokemon' : name,
+        'attack': attack,
+        'defense': defense,
+        'speed': speed,
+    }  
+    compTeam.push(compPokemon)
+    console.log("test", compTeam)
+    })
+
+}
+
+function teamSet(arr){
+    compTeam = arr
+    return compTeam
+}
+
+
+compTeamCreator()
 //task 5:
 //When battle starts, the users pokemon choices will show up on buttons with the pokemons image
 //when the user clicks one of their pokemon choices, a modal appears as the "battlefield" with the user choice pokemon and ai choice pokemon
