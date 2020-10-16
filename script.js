@@ -38,7 +38,9 @@ $('#search-btn').on('click', function(){
     $('#pokeattack').text("Attack stat: " + response.stats[1].base_stat)
     $('#pokedefense').text("Defense stat: " + response.stats[2].base_stat)
     $('#pokespeed').text("Speed stat: " + response.stats[5].base_stat)
-  
+    $('#pokeexp').text(response.base_experience)
+    console.log('base_experience:', response.base_experience)
+
     
 
 
@@ -47,9 +49,16 @@ $('#search-btn').on('click', function(){
 });
 });
 //task 3:
-//if confirm is clicked, current pokemon is added to team, modal closes, takes user back to search bar.
+//if confirm is clicked, current pokemon is added to team, clears image and search bar.
 //progress bar of some sort to show how many pokemon are left to choose.
+var userTeam = []
+$('#add-button').on('click', function(){
+  userTeam.push($('#pokediv').val());
+  $('#pokediv').empty()
+  console.log('userTeam:', userTeam)
+  $('#input').empty()
 
+})
 //task 4:
 //create an array which holds the AIs possible pokemon choices
 //AFTER the user picks their 3 pokemon, the AI picks 3 pokemon randomly from the array
@@ -107,8 +116,8 @@ function teamSet(arr){
 compTeamCreator()
 //task 5:
 //When battle starts, the users pokemon choices will show up on buttons with the pokemons image
-//when the user clicks one of their pokemon choices, a modal appears as the "battlefield" with the user choice pokemon and ai choice pokemon
-//the modal should have a "fight" button
+//when the user clicks one of their pokemon choices, a modal it appears on the  "battlefield" div with the user choice pokemon and ai choice pokemon
+//clicking the fight button will determine winner
 
 //task 6:
 //when fight button is clicked, a winner determined by:

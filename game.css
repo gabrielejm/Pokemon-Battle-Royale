@@ -45,3 +45,7 @@ body {
     color: white;
     padding: 15px;
 }
+
+.hide {
+    display: none;
+}
