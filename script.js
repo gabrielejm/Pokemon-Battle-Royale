@@ -38,13 +38,18 @@ $('#search-btn').on('click', function(){
     $('#pokespeed').text("Speed stat: " + response.stats[5].base_stat)
     $('#pokeexp').text(response.base_experience)
     
+    //task 3:
+    //if add to team is clicked, current pokemon is added to team, clears image, stats/info, and search bar.
+    //if cancel is clicked, everything clears and does not add pokemon to team
+    //progress bar of some sort to show how many pokemon are left to choose.
+
     
 
     $('#add-button').on('click', function(){
       pokemoninfo = {name: response.name, type: response.types[0].type.name, attack: response.stats[1].base_stat, defense: response.stats[2].base_stat, speed: response.stats[5].base_stat, base_exp: response.base_experience, image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/" + pokeID + ".png"}
       userTeam.push(pokemoninfo)
       console.log('current team', userTeam)
-    $('#pokediv').remove();
+      $('#pokediv').remove();
   
 
 
@@ -56,10 +61,6 @@ $('#search-btn').on('click', function(){
 
 });
 });
-//task 3:
-//if add to team is clicked, current pokemon is added to team, clears image, stats/info, and search bar.
-//if cancel is clicked, everything clears and does not add pokemon to team
-//progress bar of some sort to show how many pokemon are left to choose.
 
 //task 4:
 //create an array which holds the AIs possible pokemon choices
