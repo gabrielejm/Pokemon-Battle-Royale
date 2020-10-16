@@ -1,16 +1,12 @@
-//task 1:
+//DONE//task 1:
 //start button starts game, hides current content, adds search bar and search button.
-$('#start-button').on('click'), function(){
-  
-}
-//task 2:
+
+//DONE//task 2:
 //the search button does an ajax call based on the user input.
 //modal pops up showing pokemon name, image, type, attack stat, defense stat, a confirm button, and a cancel button.
 //the user needs to pick 3 pokemon
-//cancel button closes modal, allows user to search more, will not add pokemon to team
-function capitalize(word) {
-  word = word.charAt(0).toUpperCase() + word.slice(1)
-}
+
+
 $('#search-btn').on('click', function(){
   event.preventDefault();
   var userInput = $('#input').val();
@@ -49,14 +45,20 @@ $('#search-btn').on('click', function(){
 });
 });
 //task 3:
-//if confirm is clicked, current pokemon is added to team, clears image and search bar.
+//if add to team is clicked, current pokemon is added to team, clears image, stats/info, and search bar.
+//if cancel is clicked, everything clears and does not add pokemon to team
 //progress bar of some sort to show how many pokemon are left to choose.
 var userTeam = []
+var pokemon1 = {type:"", attack:"", defense:"", speed:"", base_exp:"", image:""}
+var pokemon2 = {type:"", attack:"", defense:"", speed:"", base_exp:"", image:""}
+var pokemon3 = {type:"", attack:"", defense:"", speed:"", base_exp:"", image:""}
+var input = $('#input');
+
 $('#add-button').on('click', function(){
-  userTeam.push($('#pokediv').val());
-  $('#pokediv').empty()
-  console.log('userTeam:', userTeam)
-  $('#input').empty()
+  
+  $('#pokediv').empty();
+  
+
 
 })
 //task 4:

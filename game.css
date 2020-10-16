@@ -49,3 +49,7 @@ body {
 .hide {
     display: none;
 }
+
+.pure-button {
+    margin: 5px;
+}
