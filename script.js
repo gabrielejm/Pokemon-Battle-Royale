@@ -31,7 +31,7 @@ $('#search-btn').on('click', function(){
     var type = response.types[0].type.name
 
     type = type.charAt(0).toUpperCase() + type.slice(1)
-    $('#poketype').text(type)
+    $('#poketype').text(type + " type")
 
     $('#pokeattack').text("Attack stat: " + response.stats[1].base_stat)
     $('#pokedefense').text("Defense stat: " + response.stats[2].base_stat)
