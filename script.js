@@ -57,24 +57,26 @@ function randomCompPokemon () {
     var attack = ''
     var defense = ''
     var speed = ''
-    
+    var image = ''
     
     $.ajax({
         url: queryURL,
         method: "GET",
     }).then(function(response) {
+        var pokeId = response.id
         name = response.forms[0].name;
         name = name.charAt(0).toUpperCase() + name.slice(1)
         console.log(name)
         speed = response.stats[5].base_stat;
         attack = response.stats[1].base_stat;
         defense = response.stats[2].base_stat;
-        // var image = response.sprites.other.official-artwork[0]
+        image = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/" + pokeId + ".png"
     var compPokemon = {
         'pokemon' : name,
         'attack': attack,
         'defense': defense,
         'speed': speed,
+        'picture': image
     }  
     compTeam.push(compPokemon)
     console.log("test", compTeam)
