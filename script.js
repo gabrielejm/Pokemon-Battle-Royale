@@ -19,10 +19,12 @@ $('#search-btn').on('click', function(){
     method: "GET"
   }).then(function(response) {
     console.log('response:', response)
-
+    var userTeam = []
+    var pokemoninfo = {}
     var pokeID = response.id;
     var imageURL = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/" + pokeID + ".png";
     var name2 = response.name
+
     name2 = name2.charAt(0).toUpperCase() + name2.slice(1)
     $('#pokename').text(name2)
     $('#pokeimage').append('<div><img src=' + imageURL + '></div>')
@@ -36,13 +38,12 @@ $('#search-btn').on('click', function(){
     $('#pokespeed').text("Speed stat: " + response.stats[5].base_stat)
     $('#pokeexp').text(response.base_experience)
     
-    var userTeam = []
-    var pokemoninfo = {}
+    
 
     $('#add-button').on('click', function(){
-    pokemoninfo = {name: response.name, type: response.types[0].type.name, attack: response.stats[1].base_stat, defense: response.stats[2].base_stat, speed: response.stats[5].base_stat, base_exp: response.base_experience, image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/" + pokeID + ".png"}
-    console.log('pokemoninfo:', pokemoninfo)
-  
+      pokemoninfo = {name: response.name, type: response.types[0].type.name, attack: response.stats[1].base_stat, defense: response.stats[2].base_stat, speed: response.stats[5].base_stat, base_exp: response.base_experience, image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/" + pokeID + ".png"}
+      userTeam.push(pokemoninfo)
+      console.log('current team', userTeam)
     $('#pokediv').remove();
   
 
