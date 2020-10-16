@@ -35,8 +35,19 @@ $('#search-btn').on('click', function(){
     $('#pokedefense').text("Defense stat: " + response.stats[2].base_stat)
     $('#pokespeed').text("Speed stat: " + response.stats[5].base_stat)
     $('#pokeexp').text(response.base_experience)
-    console.log('base_experience:', response.base_experience)
+    
+    var userTeam = []
+    var pokemoninfo = {}
 
+    $('#add-button').on('click', function(){
+    pokemoninfo = {name: response.name, type: response.types[0].type.name, attack: response.stats[1].base_stat, defense: response.stats[2].base_stat, speed: response.stats[5].base_stat, base_exp: response.base_experience, image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/" + pokeID + ".png"}
+    console.log('pokemoninfo:', pokemoninfo)
+  
+    $('#pokediv').remove();
+  
+
+
+})
     
 
 
@@ -48,19 +59,7 @@ $('#search-btn').on('click', function(){
 //if add to team is clicked, current pokemon is added to team, clears image, stats/info, and search bar.
 //if cancel is clicked, everything clears and does not add pokemon to team
 //progress bar of some sort to show how many pokemon are left to choose.
-var userTeam = []
-var pokemon1 = {type:"", attack:"", defense:"", speed:"", base_exp:"", image:""}
-var pokemon2 = {type:"", attack:"", defense:"", speed:"", base_exp:"", image:""}
-var pokemon3 = {type:"", attack:"", defense:"", speed:"", base_exp:"", image:""}
-var input = $('#input');
 
-$('#add-button').on('click', function(){
-  
-  $('#pokediv').empty();
-  
-
-
-})
 //task 4:
 //create an array which holds the AIs possible pokemon choices
 //AFTER the user picks their 3 pokemon, the AI picks 3 pokemon randomly from the array
@@ -124,11 +123,10 @@ compTeamCreator()
 //task 6:
 //when fight button is clicked, a winner determined by:
   //the pokemon with the higher speed stat attacks first
-  //if the attacking pokemons attack stat is higher than the defending pokemons defense stat, it will KO the defending pokemon.
-  //if the attacking attack stat is lower thean the defending pokemons defense stat, it will not KO it.
+  //if attacking pokemons attack stat > defending pokemons defense stat, it will ko it.
   //the pokemon with the lower speed will attack second in the same manner if it is not KO'd
   //if there is a tie (neither pokemon KO each other), the winner will be determined by whichever pokemon has the higher base experience stat.
-  //when a pokemon is KO'd, both sides are able to pick a new pokemon (AI picks random from choices), the defeated pokemon will be removed from that users choices. The winners pokemon is not removed.
+  //when a pokemon is KO'd, both sides are able to pick a new pokemon (AI picks random from choices), the defeated pokemon will be removed from that teams choices. The winners pokemon is not removed.
 
 //task 7:
   //A game winner is determined when either side runs out of pokemon.
@@ -136,6 +134,6 @@ compTeamCreator()
   //If the user loses, they are presented with a loser message telling them to go do something else using BoredAPI (EX: "You suck at battling, how about you go " + api input + " instead" )
   //along with the users win/lose message, they will be presented with a replay button which will restart the game.
 
-  //extra comment
+  
 
 
