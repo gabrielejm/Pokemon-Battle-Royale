@@ -1,6 +1,8 @@
 //task 1:
 //start button starts game, hides current content, adds search bar and search button.
-
+$('#start-button').on('click'), function(){
+  
+}
 //task 2:
 //the search button does an ajax call based on the user input.
 //modal pops up showing pokemon name, image, type, attack stat, defense stat, a confirm button, and a cancel button.
