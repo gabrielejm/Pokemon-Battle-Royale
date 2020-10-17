@@ -1,6 +1,7 @@
 body {
     background: white;
     color: red;
+    text-align: center;
 }
 
 .grid-1 {
@@ -21,7 +22,7 @@ body {
      font-weight: bolder;
 }
 
-.gameOver {
+.tryThis {
     text-align: center;
     color: red;
 }

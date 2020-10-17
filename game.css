@@ -44,5 +44,12 @@ body {
     background: blue;
     color: white;
     padding: 15px;
-    
+}
+
+.hide {
+    display: none;
+}
+
+.pure-button {
+    margin: 5px;
 }
