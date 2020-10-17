@@ -124,11 +124,14 @@ function battlePreveiw () {
     var userPokemon = $('<div>')
     var computerPokemon = $('<div>')
     var versus = $('<div>')
+    var fightBtn = $('<button>')
+    var modal = $('<div>')
 
     // User's Pokemon Appears Here
     userPokemon.css({
         "background": "red",
         "border": "solid",
+        "color": "black",
         "height" : "245px",
         "width": "245px",
         "float": "left",
@@ -151,6 +154,7 @@ function battlePreveiw () {
     computerPokemon.css({
         "background": "white",
         "border": "solid",
+        "color" : "black",
         "height" : "245px",
         "width": "245px",
         "float": "right",
@@ -170,6 +174,8 @@ function battlePreveiw () {
     computerPokemon.append(aiName)
     computerPokemon.append(aiImg)
 
+
+    // Black Box between the two pokemon
     versus.css({
         "background" : "black",
         "border": "solid",
@@ -183,20 +189,41 @@ function battlePreveiw () {
     })
     versus.text("VS")
 
-    // var fieldImg = "https://i.redd.it/o8a7u5vl6hb41.png"
+    // Button to Initiate Fight Function
+    fightBtn.text("Fight!")
+     
+    
+
+
+    // Holds the Pokemon Facing each other
     battlefield.css({
-        // "background-image": "url(" + fieldImg + ")",
         "background" : "grey",
         "height": "200px",
         "width": "550px",
-        // "z-index" : "1",
+        "z-index" : "2",
+        "margin-top": "16%",
+        "margin-left": "32%"
+
+    })
+
+    // Greys out behind it
+    modal.css({
+      "position" : "fixed",
+      "top" : "0",
+      "left" : "0",
+      "height" : "100%",
+      "width" : "100%",
+      "background": "rgba(0,0,0,0.4)"
     })
 
     battlefield.append(userPokemon)
     battlefield.append(versus)
     battlefield.append(computerPokemon)
+    battlefield.append(fightBtn)
+
+    modal.append(battlefield)
     
-    $('body').append(battlefield)
+    $('body').append(modal)
 }
 
 battlePreveiw()
