@@ -131,7 +131,7 @@ function compTeamCreator() {
    
     })
 
-}
+  }
 }
 
 compTeamCreator()
@@ -143,13 +143,16 @@ $('#testMe').on("click", function() {
 //When battle starts, the users pokemon choices will show up on buttons with the pokemons image
 //when the user clicks one of their pokemon choices, a modal it appears on the  "battlefield" div with the user choice pokemon and ai choice pokemon
 //clicking the fight button will determine winner
+var fightBtn = $('<button>')
+fightBtn.on('click', function(){
+  // Battle Code Function Here
+})
 
 function battlePreveiw () {
     var battlefield = $('<div>')
     var userPokemon = $('<div>')
     var computerPokemon = $('<div>')
     var versus = $('<div>')
-    var fightBtn = $('<button>')
     var modal = $('<div>')
     var compTeamArr = JSON.parse(localStorage.getItem("aiTeam"))
     var randomTeamPokemon = Math.floor(Math.random()* Math.floor(compTeamArr.length))
@@ -228,9 +231,6 @@ function battlePreveiw () {
       "text-align": "Center",
       "border" : "solid",
     })
-    fightBtn.on('click', function(){
-      // Battle Code Function Here
-    })
     
 
 
@@ -305,10 +305,10 @@ function battleStart (){
         //computer turn code here
         compPokemon.attack(userPokemon, move)
       }}
-  function userPokemon(defensePointsLeft);
+      function userPokemon(defensePointsLeft){
       if (gameData.userPokemon.defense == 0) {
         gameData.userTeam.userPokemon //code needs to be finished
-      }
+      }}
     }
   //task 7:
 
