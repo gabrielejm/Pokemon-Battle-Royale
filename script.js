@@ -5,101 +5,104 @@
 //the search button does an ajax call based on the user input.
 //modal pops up showing pokemon name, image, type, attack stat, defense stat, a confirm button, and a cancel button.
 //the user needs to pick 3 pokemon
-var g_currentpokemon; 
-
-$('#search-btn').on('click', function(){
+var g_currentpokemon;
+var userTeam = [];
+$("#search-btn").on("click", function () {
   event.preventDefault();
-  var userInput = $('#input').val();
+  var userInput = $("#input").val();
   var queryURL = "https://pokeapi.co/api/v2/pokemon/" + userInput;
-  
-
 
   $.ajax({
     url: queryURL,
-    method: "GET"
-  }).then(function(response) {
+    method: "GET",
+  }).then(function (response) {
     g_currentpokemon = response;
-    
-    console.log('response:', response)
-    var userTeam = []
-    var pokemoninfo = {}
+
+    console.log("response:", response);
+
     var pokeID = response.id;
-    var imageURL = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/" + pokeID + ".png";
-    var name2 = response.name
+    var imageURL =
+      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/" +
+      pokeID +
+      ".png";
+    var name2 = response.name;
 
-    name2 = name2.charAt(0).toUpperCase() + name2.slice(1)
-    $('#pokename').text(name2)
-    $('#pokeimage').html('<div><img src=' + imageURL + '></div>')
+    name2 = name2.charAt(0).toUpperCase() + name2.slice(1);
+    $("#pokename").text(name2);
+    $("#pokeimage").html("<div><img src=" + imageURL + "></div>");
 
-    var type = response.types[0].type.name
+    var type = response.types[0].type.name;
 
-    type = type.charAt(0).toUpperCase() + type.slice(1)
-    $('#poketype').text(type + " type")
+    type = type.charAt(0).toUpperCase() + type.slice(1);
+    $("#poketype").text(type + " type");
 
-    $('#pokeattack').text("Attack stat: " + response.stats[1].base_stat)
-    $('#pokedefense').text("Defense stat: " + response.stats[2].base_stat)
-    $('#pokespeed').text("Speed stat: " + response.stats[5].base_stat)
-    $('#pokeexp').text(response.base_experience)
-    
+    $("#pokeattack").text("Attack stat: " + response.stats[1].base_stat);
+    $("#pokedefense").text("Defense stat: " + response.stats[2].base_stat);
+    $("#pokespeed").text("Speed stat: " + response.stats[5].base_stat);
+    $("#pokeexp").text(response.base_experience);
+
     //task 3:
     //if add to team is clicked, current pokemon is added to team, clears image, stats/info, and search bar.
-    //if cancel is clicked, everything clears and does not add pokemon to team
+    //if cancel is clicked, everything clears and does not add pokemon to team. user cannot add more than 3.
     //progress bar of some sort to show how many pokemon are left to choose.
-
-    
-
-    $('#add-button').on('click', function(){
-
-      pokemoninfo = {name: g_currentpokemon.name,
-         type: g_currentpokemon.types[0].type.name,
-         attack: g_currentpokemon.stats[1].base_stat,
-         defense: g_currentpokemon.stats[2].base_stat,
-         speed:g_currentpokemon.stats[5].base_stat,
-         base_exp: g_currentpokemon.base_experience,
-         image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/" + g_currentpokemon.id + ".png"}
-      userTeam.push(pokemoninfo)
-      console.log('current team', userTeam)
-      clearPokeSearch();
-      $('#input').val('');
-      
-
-})
-    
-
-
-
-
+  });
 });
+
+$("#add-button").on("click", function () {
+  var pokemoninfo = {
+    name: g_currentpokemon.name,
+    type: g_currentpokemon.types[0].type.name,
+    attack: g_currentpokemon.stats[1].base_stat,
+    defense: g_currentpokemon.stats[2].base_stat,
+    speed: g_currentpokemon.stats[5].base_stat,
+    base_exp: g_currentpokemon.base_experience,
+    image:
+      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/" +
+      g_currentpokemon.id +
+      ".png",
+  };
+
+  userTeam.push(pokemoninfo);
+  console.log("current team", userTeam);
+  localStorage.setItem("User Team", JSON.stringify(userTeam));
+  clearPokeSearch();
+  $("#input").val("");
 });
+
+$("#cancel-button").on("click", function () {
+  clearPokeSearch();
+  $("#input").val("");
+});
+
+function startGame(arr) {}
 
 function clearPokeSearch() {
-  $('#pokename').text("")
-  $('#pokeimage').html("")
-  $('#poketype').text("")
-  $('#pokeattack').text("")
-  $('#pokedefense').text("")
-  $('#pokespeed').text("")
-  $('#pokeexp').text("")
-  };
+  $("#pokename").text("");
+  $("#pokeimage").html("");
+  $("#poketype").text("");
+  $("#pokeattack").text("");
+  $("#pokedefense").text("");
+  $("#pokespeed").text("");
+  $("#pokeexp").text("");
+}
 
 //task 4:
 //create an array which holds the AIs possible pokemon choices
 //AFTER the user picks their 3 pokemon, the AI picks 3 pokemon randomly from the array
 
 function compTeamCreator() {
-    compTeam = []
+  compTeam = [];
 
-    for (var i = 0; i < 3; i++){
-    
-    var randomPokemon = Math.floor(Math.random()* Math.floor(721)) 
-    var queryURL = "https://pokeapi.co/api/v2/pokemon/" + randomPokemon
-    var name = ''
-    var attack = ''
-    var defense = ''
-    var speed = ''
-    var image = ''
-    var baseEXP = ''
-    
+  for (var i = 0; i < 3; i++) {
+    var randomPokemon = Math.floor(Math.random() * Math.floor(721));
+    var queryURL = "https://pokeapi.co/api/v2/pokemon/" + randomPokemon;
+    var name = "";
+    var attack = "";
+    var defense = "";
+    var speed = "";
+    var image = "";
+    var baseEXP = "";
+
     // Ajax randomly generates Pokemon for the AI Team
     $.ajax({
         url: queryURL,
@@ -134,11 +137,12 @@ function compTeamCreator() {
   }
 }
 
-compTeamCreator()
+compTeamCreator();
 
-$('#testMe').on("click", function() {
-  battlePreveiw()
-})
+$("#testMe").on("click", function () {
+  battlePreveiw();
+});
+
 //task 5:
 //When battle starts, the users pokemon choices will show up on buttons with the pokemons image
 //when the user clicks one of their pokemon choices, a modal it appears on the  "battlefield" div with the user choice pokemon and ai choice pokemon
@@ -328,4 +332,3 @@ function battleStart (){
         //'finishing code needed later' gameData.userTeam.wins("You totally rock at battling, how should go " + api input + " instead")
   
       }}
-    
