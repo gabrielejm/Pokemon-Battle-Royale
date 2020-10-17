@@ -274,6 +274,7 @@ function battlePreveiw () {
   //the pokemon with the lower speed will attack second in the same manner if it is not KO'd
   //if there is a tie (neither pokemon KO each other), the winner will be determined by whichever pokemon has the higher base experience stat.
   //when a pokemon is KO'd, both sides are able to pick a new pokemon (AI picks random from choices), the defeated pokemon will be removed from that teams choices. The winners pokemon is not removed.
+function battleStart (){
 
   gameData = {
     step: 1,
@@ -287,44 +288,44 @@ function battlePreveiw () {
   pokemons.splice(selectedUserPokemon, 5);
   let selectedCompPokemon = pokemons.indexOf(compPokemon)
   pokemons.splice(selectedCompPokemon, 5);
-  function attackDefend(user, comp, move); {
+  function attackDefend(user, comp, move) {
       if (gameData.userTeam.speed.userPokemon < gameData.compTeam.speed.compPokemon) {
         //computer team goes first code here
-        compPokemon.attack(userPokemon, move);
+        compPokemon.attack(userPokemon, move)
   
-      } else (gameData.userTeam.speed.userPokemon > gameData.compTeam.speed.compPokemon), {
+      } else if (gameData.userTeam.speed.userPokemon > gameData.compTeam.speed.compPokemon){
         //user team goes first code here
         userPokemon.attack(compPokemon, move)
-      }
+      } 
+
       if (gameData.userTeam.defense.userPokemon > 0 && gameData.compTeam.defense.compPokemon > 0 && gameData.userTeam.speed.userPokemon > gameData.compTeam.speed.compPokemon) {
         //user turn code here
         userPokemon.attack(compPokemon, move)
       } else if (gameData.compTeam.defense.compPokemon > 0 && gameData.userTeam.defense.userPokemon && gameData.compTeam.speed.compPokemon > gameData.userTeam.speed.userPokemon) {
         //computer turn code here
         compPokemon.attack(userPokemon, move)
-      };
+      }}
   function userPokemon(defensePointsLeft);
       if (gameData.userPokemon.defense == 0) {
         gameData.userTeam.userPokemon //code needs to be finished
       }
-  
+    }
   //task 7:
 
   //A game winner is determined when either side runs out of pokemon.
   //If the user wins, they are presented with a congratulatory winning message (modal or new page) that tells them to go do something else using BoredAPI ("You totally rock at battling, how should go " + api input + " instead")
   //If the user loses, they are presented with a loser message telling them to go do something else using BoredAPI (EX: "You suck at battling, how about you go " + api input + " instead" )
   //along with the users win/lose message, they will be presented with a replay button which will restart the game.
-  function endGame(defensePointsLeft === 0);
+  function endGame(){
       if (gameData.userTeam.defense.current <= 0) {
   
         clearModal();
         //negative statement from boredom api code here
         //'finishing code needed later' gameData.compTeam.wins("You suck at battling, how about you go " + api input + " instead")
-      }; else (gameData.compTeam.defense.current <= 0) {
+      } else if (gameData.compTeam.defense.current <= 0) {
         clearModal();
         //positive statement from boredom api code here
         //'finishing code needed later' gameData.userTeam.wins("You totally rock at battling, how should go " + api input + " instead")
   
-      }
-  
-
+      }}
+    
