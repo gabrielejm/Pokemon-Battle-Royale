@@ -209,7 +209,9 @@ function battlePreveiw () {
       "text-align": "Center",
       "border" : "solid",
     })
-     
+    fightBtn.on('click', function(){
+      // Battle Code Function Here
+    })
     
 
 
