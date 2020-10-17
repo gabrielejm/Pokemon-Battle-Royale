@@ -7,6 +7,7 @@
 //the user needs to pick 3 pokemon
 var g_currentpokemon; 
 
+
 $('#search-btn').on('click', function(){
   event.preventDefault();
   var userInput = $('#input').val();
@@ -49,7 +50,7 @@ $('#search-btn').on('click', function(){
     
 
     $('#add-button').on('click', function(){
-
+      
       pokemoninfo = {name: g_currentpokemon.name,
          type: g_currentpokemon.types[0].type.name,
          attack: g_currentpokemon.stats[1].base_stat,
@@ -59,6 +60,7 @@ $('#search-btn').on('click', function(){
          image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/" + g_currentpokemon.id + ".png"}
       userTeam.push(pokemoninfo)
       console.log('current team', userTeam)
+      localStorage.setItem("User Team", JSON.stringify(userTeam.push(pokemoninfo)))
       clearPokeSearch();
       $('#input').val('');
       
@@ -66,8 +68,10 @@ $('#search-btn').on('click', function(){
       
     $('#cancel-button').on('click', function() {
       clearPokeSearch();
-    
     })
+
+    
+    
 
       
       
