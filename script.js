@@ -150,6 +150,7 @@ $("#testMe").on("click", function () {
 var fightBtn = $('<button>')
 fightBtn.on('click', function(){
   // Battle Code Function Here
+  pokemonBattle()
 })
 
 function battlePreveiw () {
@@ -198,7 +199,7 @@ function battlePreveiw () {
           var aiName = $('<h2>')
           var aiImg = $('<img>')
           var challenger = randomTeamPokemon
-          console.log(challenger)
+          localStorage.setItem('opposingPokemon', challenger)
 
           var aiPokeName = compTeamArr[challenger].pokemon
           var aiPokePic = compTeamArr[challenger].picture
@@ -278,6 +279,38 @@ function battlePreveiw () {
 //the pokemon with the lower speed will attack second in the same manner if it is not KO'd
 //if there is a tie (neither pokemon KO each other), the winner will be determined by whichever pokemon has the higher base experience stat.
 //when a pokemon is KO'd, both sides are able to pick a new pokemon (AI picks random from choices), the defeated pokemon will be removed from that teams choices. The winners pokemon is not removed.
+function pokemonBattle(){
+  var userPokemon = JSON.parse(localStorage.getItem("User Team"))
+  var computerPokemon = JSON.parse(localStorage.getItem("aiTeam"))
+  var challenger = localStorage.getItem("opposingPokemon")
+
+  var pokemon1 = userPokemon[0]
+  var pokemon2 = computerPokemon[challenger]
+
+  console.log(pokemon1)
+  console.log(pokemon2)
+  
+
+  if (pokemon1.speed > pokemon2.speed){
+    console.log("Pokemon 1 is faster")
+    pokeAttack(pokemon1, pokemon2)
+  } else {
+    console.log("Pokemon 2 is faster")
+    pokeAttack(pokemon2, pokemon1)
+  }
+  
+}
+
+function pokeAttack (attacker, defender){
+  if (attacker.attack > defender.defense) {
+    console.log("attacker wins")
+  } else {
+    console.log('attacker loses')
+    pokeAttack(defender, attacker)
+  }
+}
+
+
 function battleStart() {
   gameData = {
     step: 1,
