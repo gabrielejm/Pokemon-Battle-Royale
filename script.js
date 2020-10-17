@@ -125,53 +125,61 @@ function battlePreveiw () {
     var computerPokemon = $('<div>')
     var versus = $('<div>')
 
+    // User's Pokemon Appears Here
     userPokemon.css({
         "background": "red",
-        "height" : "250px",
-        "width": "250px",
+        "border": "solid",
+        "height" : "245px",
+        "width": "245px",
         "float": "left",
         "text-align": "center",
     })
-    var userName = $('<h2>')
-    var userImg = $('<img>')
-    userName.text("Bulbasaur")
-    userImg.attr("src","https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png")
-    userImg.css({
-      "height": "150px",
-      "width" : "150px",
-    })
+          var userName = $('<h2>')
+          var userImg = $('<img>')
+          
+          userName.text("Bulbasaur")
+          userImg.attr("src","https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png")
+          userImg.css({
+            "height": "150px",
+            "width" : "150px",
+           })
 
     userPokemon.append(userName)
     userPokemon.append(userImg)
 
+    // Computer Pokemon Appears here
     computerPokemon.css({
         "background": "white",
-        "border": "1px black",
-        "height" : "250px",
-        "width": "250px",
+        "border": "solid",
+        "height" : "245px",
+        "width": "245px",
         "float": "right",
         "text-align": "center"
     })
     
-    var aiName = $('<h2>')
-    var aiImg = $('<img>')
+          var aiName = $('<h2>')
+          var aiImg = $('<img>')
 
-    aiName.text("Bulbasaur")
-    aiImg.attr("src","https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png")
-    aiImg.css({
-      "height": "150px",
-      "width" : "150px",
-    })
+          aiName.text("Bulbasaur")
+          aiImg.attr("src","https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png")
+          aiImg.css({
+            "height": "150px",
+            "width" : "150px",
+          })
     
     computerPokemon.append(aiName)
     computerPokemon.append(aiImg)
 
     versus.css({
         "background" : "black",
+        "border": "solid",
+        "border-color": "black",
         "color" : "white",
-        "width" : "50px",
-        "height": "150px",
-        "float" : "center",
+        "width" : "45px",
+        "height": "125px",
+        "float" : "left",
+        "padding-top" : "120px",
+        "text-align": "center"
     })
     versus.text("VS")
 
@@ -180,7 +188,7 @@ function battlePreveiw () {
         // "background-image": "url(" + fieldImg + ")",
         "background" : "grey",
         "height": "200px",
-        "width": "600px",
+        "width": "550px",
         // "z-index" : "1",
     })
 
@@ -192,6 +200,7 @@ function battlePreveiw () {
 }
 
 battlePreveiw()
+
 //task 6:
 //when fight button is clicked, a winner determined by:
   //the pokemon with the higher speed stat attacks first
