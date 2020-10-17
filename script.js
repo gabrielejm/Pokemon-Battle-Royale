@@ -273,13 +273,12 @@ function battlePreveiw () {
 
 //task 6:
 //when fight button is clicked, a winner determined by:
-  //the pokemon with the higher speed stat attacks first
-  //if attacking pokemons attack stat > defending pokemons defense stat, it will ko it.
-  //the pokemon with the lower speed will attack second in the same manner if it is not KO'd
-  //if there is a tie (neither pokemon KO each other), the winner will be determined by whichever pokemon has the higher base experience stat.
-  //when a pokemon is KO'd, both sides are able to pick a new pokemon (AI picks random from choices), the defeated pokemon will be removed from that teams choices. The winners pokemon is not removed.
-function battleStart (){
-
+//the pokemon with the higher speed stat attacks first
+//if attacking pokemons attack stat > defending pokemons defense stat, it will ko it.
+//the pokemon with the lower speed will attack second in the same manner if it is not KO'd
+//if there is a tie (neither pokemon KO each other), the winner will be determined by whichever pokemon has the higher base experience stat.
+//when a pokemon is KO'd, both sides are able to pick a new pokemon (AI picks random from choices), the defeated pokemon will be removed from that teams choices. The winners pokemon is not removed.
+function battleStart() {
   gameData = {
     step: 1,
     hero: {},
@@ -290,7 +289,7 @@ function battleStart (){
   // var compTeam = compPokemon[];
   let selectedUserPokemon = pokemons.indexOf(userPokemon);
   pokemons.splice(selectedUserPokemon, 5);
-  let selectedCompPokemon = pokemons.indexOf(compPokemon)
+  let selectedCompPokemon = pokemons.indexOf(compPokemon);
   pokemons.splice(selectedCompPokemon, 5);
   function attackDefend(user, comp, move) {
       if (gameData.userTeam.speed.userPokemon < gameData.compTeam.speed.compPokemon) {
