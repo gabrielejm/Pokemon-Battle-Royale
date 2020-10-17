@@ -27,8 +27,17 @@ body {
     text-align: center;
 }
 
-.searchBar {
+.pure-form {
     text-align: center;
+    position: absolute;
+    top: 520px;
+    left: 740px;
+}
+
+#search-btn {
+    background-color: blue;
+    color: white;
+    padding: 15px;
 }
 
 .flex-parent {
@@ -41,7 +50,14 @@ body {
 
 #add-button {
     justify-content: center;
-    background: blue;
+    background: green;
+    color: white;
+    padding: 15px;
+}
+
+#cancel-button {
+    justify-content: center;
+    background: red;
     color: white;
     padding: 15px;
 }
@@ -52,4 +68,29 @@ body {
 
 .pure-button {
     margin: 5px;
+}
+
+#progress {
+    background: black;
+    border-radius: 13px;
+    height: 20px;
+    width: 300px;
+    padding: 3px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+
+#progress:after {
+    content: '';
+    display: block;
+    background: red;
+    width: 50%;
+    height: 100%;
+    border-radius: 9px;
+}
+
+.progressBar {
+    margin-bottom: 40px;
 }
