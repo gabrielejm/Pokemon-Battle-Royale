@@ -41,7 +41,7 @@ $('#search-btn').on('click', function(){
     
     //task 3:
     //if add to team is clicked, current pokemon is added to team, clears image, stats/info, and search bar.
-    //if cancel is clicked, everything clears and does not add pokemon to team
+    //if cancel is clicked, everything clears and does not add pokemon to team. user cannot add more than 3.
     //progress bar of some sort to show how many pokemon are left to choose.
 
     
