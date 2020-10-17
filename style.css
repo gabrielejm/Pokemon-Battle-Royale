@@ -1,0 +1,48 @@
+body {
+    background: white;
+    color: red;
+}
+
+.grid-1 {
+    background: red;
+    margin: 0px auto;            
+    text-align: center;
+    color: white;
+    font-size: 25px;
+    font-weight: bolder;
+}
+
+.grid-2 {
+     background: black;
+     margin: 0px auto;            
+     text-align: center;
+     color: white;
+     font-size: 25px;
+     font-weight: bolder;
+}
+
+.rules {
+    color:black;
+    text-align: center;
+}
+
+#start-button {
+    background: green;
+    color: white;
+    border-radius: 3px;
+    margin-right: 20px;
+}
+
+#giveUp-button {
+    background: red;
+    color: white;
+    border-radius: 3px;
+}
+
+.flex-parent {
+    display: flex;
+}
+
+.jc-center {
+    justify-content: center;
+}

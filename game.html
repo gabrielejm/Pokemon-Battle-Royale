@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon Battle Royale</title>
+</head>
+
+<link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+<link rel="stylesheet" href="game.css">
+
+<body>
+
+<!--First header in red-->    
+<div class = "grid-1">
+    <div class = "pure-g">
+      <div class = "pure-u-1">
+        <div class = "redbox">
+          <p>Pokemon</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!--Second header in black-->
+  <div class = "grid-2">
+    <div class = "pure-g">
+      <div class = "pure-u-1">
+        <div class = "blackbox">
+          <p>Combat Game</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!--List and Search Bar-->
+<div class="beginFight">
+    <h2>Choose Your Team:</h2>
+
+<!--Image-->
+<img src="https://pngimg.com/uploads/pokemon_logo/pokemon_logo_PNG5.png">
+</div>
+
+    <div id="pokediv">
+      <div id="pokename"></div>
+      <div id="pokeimage"></div>
+      <div id="poketype"></div>
+      <div id="pokeattack"></div>
+      <div id="pokedefense"></div>
+      <div id="pokespeed"></div>
+      <div class="hide" id="pokeexp"></div>
+    </div>
+ 
+<!--Progress bar-->
+<div id="progress"></div>
+<h3 class="progressBar">Chosen Pokemon</h3>
+
+<!--Search Bar-->
+<form class="pure-form">
+    <div class="pure">
+    <input id="input" type="text" class="pure-input-rounded" />
+    <button id="search-btn" type="submit" class="pure-button">Search</button>
+</div>
+</form>
+
+
+<!--Button to add to your team-->
+<div class="flex-parent jc-center">
+
+  <button class="button-xlarge pure-button" id="add-button">Add to Team</button>
+  <button class="button-xlarge pure-button" id="cancel-button">Cancel</button>
+
+  </div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="script.js"></script>
+
+</body>

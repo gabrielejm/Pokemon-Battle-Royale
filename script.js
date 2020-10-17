@@ -5,7 +5,7 @@
 //the search button does an ajax call based on the user input.
 //modal pops up showing pokemon name, image, type, attack stat, defense stat, a confirm button, and a cancel button.
 //the user needs to pick 3 pokemon
-
+var g_currentpokemon; 
 
 $('#search-btn').on('click', function(){
   event.preventDefault();
@@ -18,6 +18,8 @@ $('#search-btn').on('click', function(){
     url: queryURL,
     method: "GET"
   }).then(function(response) {
+    g_currentpokemon = response;
+    
     console.log('response:', response)
     var userTeam = []
     var pokemoninfo = {}
@@ -27,7 +29,8 @@ $('#search-btn').on('click', function(){
 
     name2 = name2.charAt(0).toUpperCase() + name2.slice(1)
     $('#pokename').text(name2)
-    $('#pokeimage').append('<div><img src=' + imageURL + '></div>')
+    $('#pokeimage').html('<div><img src=' + imageURL + '></div>')
+
     var type = response.types[0].type.name
 
     type = type.charAt(0).toUpperCase() + type.slice(1)
@@ -46,13 +49,19 @@ $('#search-btn').on('click', function(){
     
 
     $('#add-button').on('click', function(){
-      pokemoninfo = {name: response.name, type: response.types[0].type.name, attack: response.stats[1].base_stat, defense: response.stats[2].base_stat, speed: response.stats[5].base_stat, base_exp: response.base_experience, image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/" + pokeID + ".png"}
+
+      pokemoninfo = {name: g_currentpokemon.name,
+         type: g_currentpokemon.types[0].type.name,
+         attack: g_currentpokemon.stats[1].base_stat,
+         defense: g_currentpokemon.stats[2].base_stat,
+         speed:g_currentpokemon.stats[5].base_stat,
+         base_exp: g_currentpokemon.base_experience,
+         image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/" + g_currentpokemon.id + ".png"}
       userTeam.push(pokemoninfo)
       console.log('current team', userTeam)
-      $('#pokediv').empty();
+      clearPokeSearch();
       $('#input').val('');
-  
-
+      
 
 })
     
@@ -62,6 +71,16 @@ $('#search-btn').on('click', function(){
 
 });
 });
+
+function clearPokeSearch() {
+  $('#pokename').text("")
+  $('#pokeimage').html("")
+  $('#poketype').text("")
+  $('#pokeattack').text("")
+  $('#pokedefense').text("")
+  $('#pokespeed').text("")
+  $('#pokeexp').text("")
+  };
 
 //task 4:
 //create an array which holds the AIs possible pokemon choices
@@ -288,6 +307,7 @@ function battlePreveiw () {
       }
   
   //task 7:
+
   //A game winner is determined when either side runs out of pokemon.
   //If the user wins, they are presented with a congratulatory winning message (modal or new page) that tells them to go do something else using BoredAPI ("You totally rock at battling, how should go " + api input + " instead")
   //If the user loses, they are presented with a loser message telling them to go do something else using BoredAPI (EX: "You suck at battling, how about you go " + api input + " instead" )
@@ -305,3 +325,4 @@ function battlePreveiw () {
   
       }
   
+
