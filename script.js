@@ -273,18 +273,14 @@ function battlePreveiw () {
   //if there is a tie (neither pokemon KO each other), the winner will be determined by whichever pokemon has the higher base experience stat.
   //when a pokemon is KO'd, both sides are able to pick a new pokemon (AI picks random from choices), the defeated pokemon will be removed from that teams choices. The winners pokemon is not removed.
 
-  gameData = {
-    step: 1,
-    hero: {},
-    enemy: {},
-  };
+
   // 'incomplete code' function pokemon(teamSet);
   // 'incomplete code' var userTeam = userPokemon[];
   // var compTeam = compPokemon[];
   let selectedUserPokemon = pokemons.indexOf(userPokemon);
-  pokemons.splice(selectedUserPokemon, 5);
+  pokemons.splice(selectedUserPokemon, 3);
   let selectedCompPokemon = pokemons.indexOf(compPokemon)
-  pokemons.splice(selectedCompPokemon, 5);
+  pokemons.splice(selectedCompPokemon, 3);
   function attackDefend(user, comp, move); {
       if (gameData.userTeam.speed.userPokemon < gameData.compTeam.speed.compPokemon) {
         //computer team goes first code here
