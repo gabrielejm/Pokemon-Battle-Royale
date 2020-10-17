@@ -49,7 +49,8 @@ $('#search-btn').on('click', function(){
       pokemoninfo = {name: response.name, type: response.types[0].type.name, attack: response.stats[1].base_stat, defense: response.stats[2].base_stat, speed: response.stats[5].base_stat, base_exp: response.base_experience, image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/" + pokeID + ".png"}
       userTeam.push(pokemoninfo)
       console.log('current team', userTeam)
-      $('#pokediv').remove();
+      $('#pokediv').empty();
+      $('#input').val('');
   
 
 
