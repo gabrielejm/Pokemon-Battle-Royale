@@ -65,62 +65,185 @@ $('#search-btn').on('click', function(){
 //task 4:
 //create an array which holds the AIs possible pokemon choices
 //AFTER the user picks their 3 pokemon, the AI picks 3 pokemon randomly from the array
-var compTeam = []
-var compPokemon1 = $('<div>')
-var compPokemon1Name = $('<p>')
 
 function compTeamCreator() {
-      
-    for (var i = 0; i < 3; i++){
-        randomCompPokemon()
-        
-    }
-    
-}
+    compTeam = []
 
-function randomCompPokemon () {
-    var randomPokemon = Math.floor(Math.random()* Math.floor(892))   
+    for (var i = 0; i < 3; i++){
+    
+    var randomPokemon = Math.floor(Math.random()* Math.floor(721)) 
     var queryURL = "https://pokeapi.co/api/v2/pokemon/" + randomPokemon
     var name = ''
     var attack = ''
     var defense = ''
     var speed = ''
+    var image = ''
+    var baseEXP = ''
     
-    
+    // Ajax randomly generates Pokemon for the AI Team
     $.ajax({
         url: queryURL,
         method: "GET",
     }).then(function(response) {
+        var pokeId = response.id
         name = response.forms[0].name;
         name = name.charAt(0).toUpperCase() + name.slice(1)
-        console.log(name)
         speed = response.stats[5].base_stat;
         attack = response.stats[1].base_stat;
         defense = response.stats[2].base_stat;
-        // var image = response.sprites.other.official-artwork[0]
-    var compPokemon = {
+        baseEXP = response.base_experience
+        image = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/" + pokeId + ".png"
+
+        // Creates object out of Pokemon Data to be added to AI Team
+        var compPokemon = {
         'pokemon' : name,
         'attack': attack,
         'defense': defense,
         'speed': speed,
-    }  
+        'base_exp': baseEXP,
+        'picture': image,
+        }  
+
+    // Creates Team and pushes results to Local Storage for later calls
     compTeam.push(compPokemon)
     console.log("test", compTeam)
+    localStorage.setItem("aiTeam", JSON.stringify(compTeam))
+   
     })
 
 }
-
-function teamSet(arr){
-    compTeam = arr
-    return compTeam
 }
 
-
 compTeamCreator()
+
+$('#testMe').on("click", function() {
+  battlePreveiw()
+})
 //task 5:
 //When battle starts, the users pokemon choices will show up on buttons with the pokemons image
 //when the user clicks one of their pokemon choices, a modal it appears on the  "battlefield" div with the user choice pokemon and ai choice pokemon
 //clicking the fight button will determine winner
+
+function battlePreveiw () {
+    var battlefield = $('<div>')
+    var userPokemon = $('<div>')
+    var computerPokemon = $('<div>')
+    var versus = $('<div>')
+    var fightBtn = $('<button>')
+    var modal = $('<div>')
+    var compTeamArr = JSON.parse(localStorage.getItem("aiTeam"))
+    var randomTeamPokemon = Math.floor(Math.random()* Math.floor(compTeamArr.length))
+
+    // User's Pokemon Appears Here
+    userPokemon.css({
+        "background": "red",
+        "border": "solid",
+        "color": "black",
+        "height" : "245px",
+        "width": "245px",
+        "float": "left",
+        "text-align": "center",
+    })
+          var userName = $('<h2>')
+          var userImg = $('<img>')
+          
+          userName.text("Bulbasaur")
+          userImg.attr("src","https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png")
+          userImg.css({
+            "height": "150px",
+            "width" : "150px",
+           })
+
+    userPokemon.append(userName)
+    userPokemon.append(userImg)
+
+    // Computer Pokemon Appears here
+    computerPokemon.css({
+        "background": "white",
+        "border": "solid",
+        "color" : "black",
+        "height" : "245px",
+        "width": "245px",
+        "float": "right",
+        "text-align": "center"
+    })
+    
+          var aiName = $('<h2>')
+          var aiImg = $('<img>')
+          var challenger = randomTeamPokemon
+          console.log(challenger)
+
+          var aiPokeName = compTeamArr[challenger].pokemon
+          var aiPokePic = compTeamArr[challenger].picture
+
+          aiName.text(aiPokeName)
+          aiImg.attr("src",aiPokePic)
+          aiImg.css({
+            "height": "150px",
+            "width" : "150px",
+          })
+    
+    computerPokemon.append(aiName)
+    computerPokemon.append(aiImg)
+
+
+    // Black Box between the two pokemon
+    versus.css({
+        "background" : "black",
+        "border": "solid",
+        "border-color": "black",
+        "color" : "white",
+        "width" : "45px",
+        "height": "125px",
+        "float" : "left",
+        "padding-top" : "120px",
+        "text-align": "center"
+    })
+    versus.text("VS")
+
+    // Button to Initiate Fight Function
+    fightBtn.text("Fight!")
+    fightBtn.css({
+      "width": "550px",
+      "text-align": "Center",
+      "border" : "solid",
+    })
+     
+    
+
+
+    // Holds the Pokemon Facing each other
+    battlefield.css({
+        "background" : "grey",
+        "height": "200px",
+        "width": "550px",
+        "z-index" : "2",
+        "margin-top": "16%",
+        "margin-left": "32%"
+
+    })
+
+    // Greys out behind it
+    modal.css({
+      "position" : "fixed",
+      "top" : "0",
+      "left" : "0",
+      "height" : "100%",
+      "width" : "100%",
+      "background": "rgba(0,0,0,0.4)"
+    })
+
+    battlefield.append(userPokemon)
+    battlefield.append(versus)
+    battlefield.append(computerPokemon)
+    battlefield.append(fightBtn)
+
+    modal.append(battlefield)
+    
+    $('body').append(modal)
+}
+
+// battlePreveiw()
 
 //task 6:
 //when fight button is clicked, a winner determined by:
