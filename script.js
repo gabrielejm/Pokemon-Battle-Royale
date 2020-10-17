@@ -273,10 +273,6 @@ function battlePreveiw () {
   //if there is a tie (neither pokemon KO each other), the winner will be determined by whichever pokemon has the higher base experience stat.
   //when a pokemon is KO'd, both sides are able to pick a new pokemon (AI picks random from choices), the defeated pokemon will be removed from that teams choices. The winners pokemon is not removed.
 
-
-  // 'incomplete code' function pokemon(teamSet);
-  // 'incomplete code' var userTeam = userPokemon[];
-  // var compTeam = compPokemon[];
   let selectedUserPokemon = pokemons.indexOf(userPokemon);
   pokemons.splice(selectedUserPokemon, 3);
   let selectedCompPokemon = pokemons.indexOf(compPokemon)
@@ -312,12 +308,10 @@ function battlePreveiw () {
       if (gameData.userTeam.defense.current <= 0) {
   
         clearModal();
-        //negative statement from boredom api code here
-        //'finishing code needed later' gameData.compTeam.wins("You suck at battling, how about you go " + api input + " instead")
+        gameData.compTeam.wins("You suck at battling, how about you go " + api input + " instead")
       }; else (gameData.compTeam.defense.current <= 0) {
         clearModal();
-        //positive statement from boredom api code here
-        //'finishing code needed later' gameData.userTeam.wins("You totally rock at battling, how should go " + api input + " instead")
+        gameData.userTeam.wins("You totally rock at battling, how should go " + api input + " instead")
   
       }
   
