@@ -67,6 +67,10 @@ $("#add-button").on("click", function () {
   localStorage.setItem("User Team", JSON.stringify(userTeam));
   clearPokeSearch();
   $("#input").val("");
+
+  if (userTeam.length === 3) {
+    pokeButtons();
+  }
 });
 
 $("#cancel-button").on("click", function () {
@@ -85,6 +89,37 @@ function clearPokeSearch() {
   $("#pokespeed").text("");
   $("#pokeexp").text("");
 }
+
+function pokeButtons() {
+  var userpokemon = JSON.parse(localStorage.getItem("User Team"));
+  var poke1 = userpokemon[0].name;
+  var poke2 = userpokemon[1].name;
+  var poke3 = userpokemon[2].name;
+  $("#pokename").addClass("hide");
+  $("#pokeimage").addClass("hide");
+  $("#poketype").addClass("hide");
+  $("#pokeattack").addClass("hide");
+  $("#pokedefense").addClass("hide");
+  $("#pokespeed").addClass("hide");
+  $("#beginFight").addClass("hide");
+  $("#add-button").addClass("hide");
+  $("#cancel-button").addClass("hide");
+
+  $("#poke-button-1").removeClass("hide");
+  $("#poke-button-2").removeClass("hide");
+  $("#poke-button-3").removeClass("hide");
+
+  $("#poke-button-1").html("<button>" + poke1 + "</button>");
+  $("#poke-button-2").html("<button>" + poke2 + "</button>");
+  $("#poke-button-3").html("<button>" + poke3 + "</button>");
+}
+
+$(".pokebutton").on("click", function () {
+  battlePreveiw();
+});
+
+//after user 3rd pokemon is added to users team, as assortment of 3 buttons appears showing the users pokemon team, 1 pokemon per button.
+//when the user selects a pokemon on their team (by clicking the corresponding button), the battlefield modal appears.
 
 //task 4:
 //create an array which holds the AIs possible pokemon choices
