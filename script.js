@@ -19,6 +19,7 @@ $('#search-btn').on('click', function(){
     method: "GET"
   }).then(function(response) {
     g_currentpokemon = response;
+    
     console.log('response:', response)
     var userTeam = []
     var pokemoninfo = {}
@@ -29,6 +30,7 @@ $('#search-btn').on('click', function(){
     name2 = name2.charAt(0).toUpperCase() + name2.slice(1)
     $('#pokename').text(name2)
     $('#pokeimage').html('<div><img src=' + imageURL + '></div>')
+
     var type = response.types[0].type.name
 
     type = type.charAt(0).toUpperCase() + type.slice(1)
@@ -47,6 +49,7 @@ $('#search-btn').on('click', function(){
     
 
     $('#add-button').on('click', function(){
+
       pokemoninfo = {name: g_currentpokemon.name,
          type: g_currentpokemon.types[0].type.name,
          attack: g_currentpokemon.stats[1].base_stat,
@@ -59,7 +62,6 @@ $('#search-btn').on('click', function(){
       clearPokeSearch();
       $('#input').val('');
       
-
 
 })
     
@@ -79,6 +81,7 @@ function clearPokeSearch() {
   $('#pokespeed').text("")
   $('#pokeexp').text("")
   };
+
 //task 4:
 //create an array which holds the AIs possible pokemon choices
 //AFTER the user picks their 3 pokemon, the AI picks 3 pokemon randomly from the array
@@ -270,12 +273,56 @@ function battlePreveiw () {
   //if there is a tie (neither pokemon KO each other), the winner will be determined by whichever pokemon has the higher base experience stat.
   //when a pokemon is KO'd, both sides are able to pick a new pokemon (AI picks random from choices), the defeated pokemon will be removed from that teams choices. The winners pokemon is not removed.
 
-//task 7:
+  gameData = {
+    step: 1,
+    hero: {},
+    enemy: {},
+  };
+  // 'incomplete code' function pokemon(teamSet);
+  // 'incomplete code' var userTeam = userPokemon[];
+  // var compTeam = compPokemon[];
+  let selectedUserPokemon = pokemons.indexOf(userPokemon);
+  pokemons.splice(selectedUserPokemon, 5);
+  let selectedCompPokemon = pokemons.indexOf(compPokemon)
+  pokemons.splice(selectedCompPokemon, 5);
+  function attackDefend(user, comp, move); {
+      if (gameData.userTeam.speed.userPokemon < gameData.compTeam.speed.compPokemon) {
+        //computer team goes first code here
+        compPokemon.attack(userPokemon, move);
+  
+      } else (gameData.userTeam.speed.userPokemon > gameData.compTeam.speed.compPokemon), {
+        //user team goes first code here
+        userPokemon.attack(compPokemon, move)
+      }
+      if (gameData.userTeam.defense.userPokemon > 0 && gameData.compTeam.defense.compPokemon > 0 && gameData.userTeam.speed.userPokemon > gameData.compTeam.speed.compPokemon) {
+        //user turn code here
+        userPokemon.attack(compPokemon, move)
+      } else if (gameData.compTeam.defense.compPokemon > 0 && gameData.userTeam.defense.userPokemon && gameData.compTeam.speed.compPokemon > gameData.userTeam.speed.userPokemon) {
+        //computer turn code here
+        compPokemon.attack(userPokemon, move)
+      };
+  function userPokemon(defensePointsLeft);
+      if (gameData.userPokemon.defense == 0) {
+        gameData.userTeam.userPokemon //code needs to be finished
+      }
+  
+  //task 7:
+
   //A game winner is determined when either side runs out of pokemon.
   //If the user wins, they are presented with a congratulatory winning message (modal or new page) that tells them to go do something else using BoredAPI ("You totally rock at battling, how should go " + api input + " instead")
   //If the user loses, they are presented with a loser message telling them to go do something else using BoredAPI (EX: "You suck at battling, how about you go " + api input + " instead" )
   //along with the users win/lose message, they will be presented with a replay button which will restart the game.
-
+  function endGame(defensePointsLeft === 0);
+      if (gameData.userTeam.defense.current <= 0) {
   
-
+        clearModal();
+        //negative statement from boredom api code here
+        //'finishing code needed later' gameData.compTeam.wins("You suck at battling, how about you go " + api input + " instead")
+      }; else (gameData.compTeam.defense.current <= 0) {
+        clearModal();
+        //positive statement from boredom api code here
+        //'finishing code needed later' gameData.userTeam.wins("You totally rock at battling, how should go " + api input + " instead")
+  
+      }
+  
 
