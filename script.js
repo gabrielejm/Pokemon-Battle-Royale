@@ -105,9 +105,8 @@ function pokeButtons() {
   $("#add-button").addClass("hide");
   $("#cancel-button").addClass("hide");
 
-  $("#poke-button-1").removeClass("hide");
-  $("#poke-button-2").removeClass("hide");
-  $("#poke-button-3").removeClass("hide");
+  $("#poke-button-start").removeClass("hide");
+  $("#poke-button-start").html("<button>Start Battle!</button>");
 
   $("#poke-button-1").html("<button>" + poke1 + "</button>");
   $("#poke-button-2").html("<button>" + poke2 + "</button>");
