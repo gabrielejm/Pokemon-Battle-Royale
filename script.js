@@ -189,8 +189,8 @@ var computerPokemon = $('<div>')
 var versus = $('<div>')
 var modal = $('<div>')
 
+// Starts the fight from the Battle Preview Screen
 fightBtn.on('click', function(){
-  // Battle Code Function Here
   pokemonBattle()
   fightBtn.remove()
   battlefield.remove()
@@ -204,6 +204,7 @@ fightBtn.on('click', function(){
 
 function battlePreveiw () {
     var compTeamArr = JSON.parse(localStorage.getItem("aiTeam"))
+    var userTeamArr = JSON.parse(localStorage.getItem("User Team"))
     var randomTeamPokemon = Math.floor(Math.random()* Math.floor(compTeamArr.length))
 
     // User's Pokemon Appears Here
@@ -218,9 +219,12 @@ function battlePreveiw () {
     })
           var userName = $('<h2>')
           var userImg = $('<img>')
+
+          var userPokeName = userTeamArr[0].name
+          var userPokePic = userTeamArr[0].image
           
-          userName.text("Bulbasaur")
-          userImg.attr("src","https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png")
+          userName.text(userPokeName)
+          userImg.attr("src", userPokePic)
           userImg.css({
             "height": "150px",
             "width" : "150px",
@@ -369,7 +373,7 @@ function winScreen(winner){
     "background": "red",
     "border": "solid",
     "color": "black",
-    "height" : "245px",
+    "height" : "260px",
     "width": "245px",
     "text-align": "center",
     "z-index": "2",
@@ -416,14 +420,5 @@ function winScreen(winner){
   //If the user loses, they are presented with a loser message telling them to go do something else using BoredAPI (EX: "You suck at battling, how about you go " + api input + " instead" )
   //along with the users win/lose message, they will be presented with a replay button which will restart the game.
   function endGame(){
-      if (gameData.userTeam.defense.current <= 0) {
-  
-        clearModal();
-        //negative statement from boredom api code here
-        //'finishing code needed later' gameData.compTeam.wins("You suck at battling, how about you go " + api input + " instead")
-      } else if (gameData.compTeam.defense.current <= 0) {
-        clearModal();
-        //positive statement from boredom api code here
-        //'finishing code needed later' gameData.userTeam.wins("You totally rock at battling, how should go " + api input + " instead")
-  
-      }}
+    
+  }
