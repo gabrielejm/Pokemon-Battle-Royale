@@ -176,8 +176,8 @@ var userPokemon = $("<div>");
 var computerPokemon = $("<div>");
 var versus = $("<div>");
 var modal = $("<div>");
-var nextBattle =$('<button>')
-nextBattle.text("Next Battle!")
+var nextBattle = $("<button>");
+nextBattle.text("Next Battle!");
 var currentUserPokemon = 0;
 var currenCompPokemon = 0;
 
@@ -194,6 +194,24 @@ $(document).on("click", ".fightBtn", function(){
   modal.remove()
 })
 
+<<<<<<< HEAD
+// Starts the fight from the Battle Preview Screen
+fightBtn.on("click", function () {
+  userPokemon.empty();
+  computerPokemon.empty();
+  pokemonBattle();
+  fightBtn.remove();
+  battlefield.remove();
+  userPokemon.remove();
+  computerPokemon.remove();
+  userPokemon.empty();
+  computerPokemon.empty();
+  versus.remove();
+  modal.remove();
+});
+
+=======
+>>>>>>> 71ddf13457ddc80c22db11a69ae44f0f4c384750
 function battlePreveiw() {
   var compTeamArr = JSON.parse(localStorage.getItem("aiTeam"));
   var userTeamArr = JSON.parse(localStorage.getItem("User Team"));
@@ -323,7 +341,6 @@ function pokemonBattle() {
   var pokemon1 = userPokemon[currentUserPokemon];
   var pokemon2 = computerPokemon[currenCompPokemon];
 
-  
   // Compares Pokemon's Speed and Decides who attacks
   if (pokemon1.speed > pokemon2.speed || pokemon1.speed === pokemon2.speed) {
     console.log("Pokemon 1 is faster");
@@ -356,7 +373,7 @@ function pokeAttack(attacker, defender) {
    }
 }
 
-// If attacker is unable to win, Defender attacks and ties are broken here. 
+// If attacker is unable to win, Defender attacks and ties are broken here.
 function pokeAttack2(attacker, defender) {
   var userPokemon = JSON.parse(localStorage.getItem("User Team"));
   var computerPokemon = JSON.parse(localStorage.getItem("aiTeam"));
