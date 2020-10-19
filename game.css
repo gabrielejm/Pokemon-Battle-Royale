@@ -5,6 +5,14 @@ body {
   cursor: pointer;
 }
 
+button {
+  background: red;
+  color: white;
+  border-radius: 3px;
+  margin-right: 20px;
+  border: 5px solid black;
+}
+
 .grid-1 {
   background: red;
   margin: 0px auto;
@@ -99,4 +107,14 @@ body {
 
 .progressBar {
   margin-bottom: 40px;
+}
+
+#start-battle-button {
+  background: red;
+  color: white;
+  border-radius: 3px;
+  margin-right: 20px;
+  border: 5px solid black;
+  padding: 15px;
+  margin: 15px;
 }

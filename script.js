@@ -100,7 +100,9 @@ function pokeButtons() {
   $("#cancel-button").addClass("hide");
 
   $("#poke-button-start").removeClass("hide");
-  $("#poke-button-start").html("<button>Start Battle!</button>");
+  $("#poke-button-start").html(
+    "<button id='start-battle-button'>Start Battle!</button>"
+  );
 }
 
 $(".pokebutton").on("click", function () {
@@ -274,7 +276,7 @@ function battlePreveiw() {
   fightBtn.css({
     width: "550px",
     "text-align": "Center",
-    border: "solid",
+    border: "solid 5px black",
   });
 
   // Holds the Pokemon Facing each other
