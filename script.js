@@ -181,43 +181,25 @@ nextBattle.text("Next Battle!");
 var currentUserPokemon = 0;
 var currenCompPokemon = 0;
 
-$(document).on("click", ".fightBtn", function(){
-  console.log("button click inside $(this)")
-  pokemonBattle()
-  battlefield.empty()
-  battlefield.remove()
-  userPokemon.remove()
-  userPokemon.empty()
-  computerPokemon.remove()
-  computerPokemon.empty()
-  versus.remove()
-  modal.remove()
-})
-
-<<<<<<< HEAD
-// Starts the fight from the Battle Preview Screen
-fightBtn.on("click", function () {
-  userPokemon.empty();
-  computerPokemon.empty();
+$(document).on("click", ".fightBtn", function () {
+  console.log("button click inside $(this)");
   pokemonBattle();
-  fightBtn.remove();
+  battlefield.empty();
   battlefield.remove();
   userPokemon.remove();
-  computerPokemon.remove();
   userPokemon.empty();
+  computerPokemon.remove();
   computerPokemon.empty();
   versus.remove();
   modal.remove();
 });
 
-=======
->>>>>>> 71ddf13457ddc80c22db11a69ae44f0f4c384750
 function battlePreveiw() {
   var compTeamArr = JSON.parse(localStorage.getItem("aiTeam"));
   var userTeamArr = JSON.parse(localStorage.getItem("User Team"));
   var fightBtn = $("<button>");
-  fightBtn.addClass('fightBtn')
-  
+  fightBtn.addClass("fightBtn");
+
   // User's Pokemon Appears Here
   userPokemon.css({
     background: "red",
@@ -356,21 +338,17 @@ function pokeAttack(attacker, defender) {
   var userPokemon = JSON.parse(localStorage.getItem("User Team"));
   var computerPokemon = JSON.parse(localStorage.getItem("aiTeam"));
 
-   if (attacker.attack > defender.defense) {
-     winScreen(attacker);
-     // Faster Pokemon wins, determines if winner is computer or user
-     if (attacker.name === userPokemon[currentUserPokemon].name){
-
-       currenCompPokemon++
-     } else if (attacker.name === computerPokemon[currenCompPokemon].name){
-       currentUserPokemon++
-      
-     }
-   } else {
-     
-     pokeAttack2(defender, attacker);
-     
-   }
+  if (attacker.attack > defender.defense) {
+    winScreen(attacker);
+    // Faster Pokemon wins, determines if winner is computer or user
+    if (attacker.name === userPokemon[currentUserPokemon].name) {
+      currenCompPokemon++;
+    } else if (attacker.name === computerPokemon[currenCompPokemon].name) {
+      currentUserPokemon++;
+    }
+  } else {
+    pokeAttack2(defender, attacker);
+  }
 }
 
 // If attacker is unable to win, Defender attacks and ties are broken here.
@@ -381,32 +359,28 @@ function pokeAttack2(attacker, defender) {
   if (attacker.attack > defender.defense) {
     winScreen(attacker);
     // Slower Pokemon wins, determines if pokemon is user or computer
-    if (attacker.name === userPokemon[currentUserPokemon].name){
-      currenCompPokemon++
-      
-    } else if (attacker.name === computerPokemon[currenCompPokemon].name){
-      currentUserPokemon++
-     
+    if (attacker.name === userPokemon[currentUserPokemon].name) {
+      currenCompPokemon++;
+    } else if (attacker.name === computerPokemon[currenCompPokemon].name) {
+      currentUserPokemon++;
     }
-  
-  } else if (attacker.base_exp < defender.base_exp || attacker.base_exp === defender.base_exp) {
-    winScreen(defender)
+  } else if (
+    attacker.base_exp < defender.base_exp ||
+    attacker.base_exp === defender.base_exp
+  ) {
+    winScreen(defender);
     // If there is a tie, pokemon with less base_exp loses and is determined if it's a user or computer pokemon
-    if (attacker.name === computerPokemon[currenCompPokemon].name){
-      currenCompPokemon++
-     
-    } else if (attacker.name === userPokemon[currentUserPokemon].name){
-      currentUserPokemon++
-      
+    if (attacker.name === computerPokemon[currenCompPokemon].name) {
+      currenCompPokemon++;
+    } else if (attacker.name === userPokemon[currentUserPokemon].name) {
+      currentUserPokemon++;
     }
-  
   } else {
-    winScreen(attacker)
-    if (attacker.name === userPokemon[currentUserPokemon].name){
-      currenCompPokemon++
-      
-    } else if (attacker.name === computerPokemon[currenCompPokemon].name){
-      currentUserPokemon++
+    winScreen(attacker);
+    if (attacker.name === userPokemon[currentUserPokemon].name) {
+      currenCompPokemon++;
+    } else if (attacker.name === computerPokemon[currenCompPokemon].name) {
+      currentUserPokemon++;
     }
   }
 }
@@ -457,18 +431,17 @@ function winScreen(winner) {
   modal.append(winnerPokemon);
   modal.append(nextBattle);
   $("body").append(modal);
-
 }
 
 nextBattle.on("click", function () {
-  var win = true
-  var loss = false
-  if (currentUserPokemon === 3){
-    endGame(loss)
-  } else if ( currenCompPokemon === 3){
-    endGame(win)
+  var win = true;
+  var loss = false;
+  if (currentUserPokemon === 3) {
+    endGame(loss);
+  } else if (currenCompPokemon === 3) {
+    endGame(win);
   } else {
-  battlePreveiw();
+    battlePreveiw();
   }
 });
 //task 7:
@@ -478,10 +451,26 @@ nextBattle.on("click", function () {
 //If the user loses, they are presented with a loser message telling them to go do something else using BoredAPI (EX: "You suck at battling, how about you go " + api input + " instead" )
 //along with the users win/lose message, they will be presented with a replay button which will restart the game.
 function endGame(outcome) {
-  if (outcome === true){
-  alert("You Won")
+  if (outcome === true) {
+    alert("You Won");
   } else {
-    alert("You Lost")
+    alert("You Lost");
   }
   window.location.href = "gameover.html";
 }
+
+var boredURL = "https://www.boredapi.com/api/activity/";
+
+$.ajax({
+  url: boredURL,
+  method: "GET",
+}).then(function (response) {
+  console.log("response:", response);
+  var str = response.activity;
+  var doSomething = str.toLowerCase();
+  $("#gameOverText").html(
+    '<h2 id="bored-api-text">You just had the ultimate Pokémon battling experience! <a href="game.html">Play again,</a> or maybe.... ' +
+      doSomething +
+      "!"
+  );
+});
