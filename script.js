@@ -159,7 +159,6 @@ function compTeamCreator() {
         speed: speed,
         base_exp: baseEXP,
         image: image,
-        attacked: false,
       };
 
       // Creates Team and pushes results to Local Storage for later calls
@@ -193,6 +192,7 @@ var currenCompPokemon = 0;
 var nextBattle = $("<button>");
 nextBattle.text("Next Battle!");
 
+<<<<<<< HEAD
 // Starts the fight from the Battle Preview Screen
 fightBtn.on("click", function () {
   userPokemon.empty();
@@ -208,6 +208,8 @@ fightBtn.on("click", function () {
   modal.remove();
 });
 
+=======
+>>>>>>> 71ddf13457ddc80c22db11a69ae44f0f4c384750
 function battlePreveiw() {
   var compTeamArr = JSON.parse(localStorage.getItem("aiTeam"));
   var userTeamArr = JSON.parse(localStorage.getItem("User Team"));
@@ -329,8 +331,6 @@ function battlePreveiw() {
 // Starts the battle
 
 function pokemonBattle() {
-  console.log("pokemonBattle:", pokemonBattle);
-
   var userPokemon = JSON.parse(localStorage.getItem("User Team"));
   var computerPokemon = JSON.parse(localStorage.getItem("aiTeam"));
 
@@ -349,29 +349,55 @@ function pokemonBattle() {
 
 // Decides the winner
 function pokeAttack(attacker, defender) {
-  if (attacker.attack > defender.defense) {
-    console.log("attacker wins");
-    winScreen(attacker);
-  } else {
-    console.log("attacker loses");
-    pokeAttack2(defender, attacker);
-  }
+  var userPokemon = JSON.parse(localStorage.getItem("User Team"));
+  var computerPokemon = JSON.parse(localStorage.getItem("aiTeam"));
+
+   if (attacker.attack > defender.defense) {
+     console.log("attacker wins");
+     winScreen(attacker);
+     // Faster Pokemon wins, determines if winner is computer or user
+     if (attacker.name === userPokemon[currenCompPokemon].name){
+
+       currenCompPokemon++
+     } else if (attacker.name === computerPokemon[currenCompPokemon].name){
+       currentUserPokemon++
+     }
+   } else {
+     console.log("attacker loses");
+     pokeAttack2(defender, attacker);
+     
+   }
 }
 
 // If attacker is unable to win, Defender attacks and ties are broken here.
 function pokeAttack2(attacker, defender) {
+  
   if (attacker.attack > defender.defense) {
     console.log("attacker wins");
     winScreen(attacker);
-  } else if (
-    attacker.base_exp < defender.base_exp ||
-    attacker.base_exp === defender.base_exp
-  ) {
-    console.log(attacker.name + " has less exp than " + defender.name);
-    winScreen(defender);
+    // Slower Pokemon wins, determines if pokemon is user or computer
+    if (attacker.name === userPokemon[currentuserPokemon].name){
+      currenComPokemon++
+    } else if (attacker.name === computerPokemon[currenCompPokemon].name){
+      currentUserPokemon++
+    }
+  } else if (attacker.base_exp < defender.base_exp || attacker.base_exp === defender.base_exp) {
+    console.log(attacker.name + " has less exp than " + defender.name)
+    winScreen(defender)
+    // If there is a tie, pokemon with less base_exp loses and is determined if it's a user or computer pokemon
+    if (attacker.name === userPokemon[currenCompPokemon].name){
+      currenCompPokemon++
+    } else if (attacker.name === computerPokemon[currentUserPokemon].name){
+      currentUserPokemon++
+    }
   } else {
-    console.log(defender.name + " has less exp than " + attacker.name);
-    winScreen(attacker);
+    console.log(defender.name + " has less exp than " + attacker.name)
+    winScreen(attacker)
+    if (attacker.name === userPokemon[currentUserPokemon].name){
+      currenCompPokemon++
+    } else if (attacker.name === computerPokemon[currenCompPokemon].name){
+      currentUserPokemon++
+    }
   }
 }
 
