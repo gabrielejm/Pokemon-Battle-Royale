@@ -190,9 +190,13 @@ var nextBattle =$('<button>')
 nextBattle.text("Next Battle!")
 var currentUserPokemon = 0;
 var currenCompPokemon = 0;
+var nextBattle = $("<button>");
+nextBattle.text("Next Battle!");
 
 // Starts the fight from the Battle Preview Screen
 fightBtn.on("click", function () {
+  userPokemon.empty();
+  computerPokemon.empty();
   pokemonBattle();
   fightBtn.remove();
   battlefield.remove();
@@ -325,6 +329,8 @@ function battlePreveiw() {
 // Starts the battle
 
 function pokemonBattle() {
+  console.log("pokemonBattle:", pokemonBattle);
+
   var userPokemon = JSON.parse(localStorage.getItem("User Team"));
   var computerPokemon = JSON.parse(localStorage.getItem("aiTeam"));
 
@@ -430,4 +436,6 @@ nextBattle.on("click", function () {
 //If the user wins, they are presented with a congratulatory winning message (modal or new page) that tells them to go do something else using BoredAPI ("You totally rock at battling, how should go " + api input + " instead")
 //If the user loses, they are presented with a loser message telling them to go do something else using BoredAPI (EX: "You suck at battling, how about you go " + api input + " instead" )
 //along with the users win/lose message, they will be presented with a replay button which will restart the game.
-function endGame() {}
+function endGame() {
+  window.location.href = "gameover.html";
+}
