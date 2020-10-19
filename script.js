@@ -105,13 +105,8 @@ function pokeButtons() {
   $("#add-button").addClass("hide");
   $("#cancel-button").addClass("hide");
 
-  $("#poke-button-1").removeClass("hide");
-  $("#poke-button-2").removeClass("hide");
-  $("#poke-button-3").removeClass("hide");
-
-  $("#poke-button-1").html("<button>" + poke1 + "</button>");
-  $("#poke-button-2").html("<button>" + poke2 + "</button>");
-  $("#poke-button-3").html("<button>" + poke3 + "</button>");
+  $("#poke-button-start").removeClass("hide");
+  $("#poke-button-start").html("<button>Start Battle!</button>");
 }
 
 $(".pokebutton").on("click", function () {
@@ -140,35 +135,36 @@ function compTeamCreator() {
 
     // Ajax randomly generates Pokemon for the AI Team
     $.ajax({
-        url: queryURL,
-        method: "GET",
-    }).then(function(response) {
-        var pokeId = response.id
-        name = response.forms[0].name;
-        name = name.charAt(0).toUpperCase() + name.slice(1)
-        speed = response.stats[5].base_stat;
-        attack = response.stats[1].base_stat;
-        defense = response.stats[2].base_stat;
-        baseEXP = response.base_experience
-        image = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/" + pokeId + ".png"
+      url: queryURL,
+      method: "GET",
+    }).then(function (response) {
+      var pokeId = response.id;
+      name = response.forms[0].name;
+      name = name.charAt(0).toUpperCase() + name.slice(1);
+      speed = response.stats[5].base_stat;
+      attack = response.stats[1].base_stat;
+      defense = response.stats[2].base_stat;
+      baseEXP = response.base_experience;
+      image =
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/" +
+        pokeId +
+        ".png";
 
-        // Creates object out of Pokemon Data to be added to AI Team
-        var compPokemon = {
-        'name' : name,
-        'attack': attack,
-        'defense': defense,
-        'speed': speed,
-        'base_exp': baseEXP,
-        'image': image,
-        }  
+      // Creates object out of Pokemon Data to be added to AI Team
+      var compPokemon = {
+        name: name,
+        attack: attack,
+        defense: defense,
+        speed: speed,
+        base_exp: baseEXP,
+        image: image,
+      };
 
-    // Creates Team and pushes results to Local Storage for later calls
-    compTeam.push(compPokemon)
-    console.log("test", compTeam)
-    localStorage.setItem("aiTeam", JSON.stringify(compTeam))
-   
-    })
-
+      // Creates Team and pushes results to Local Storage for later calls
+      compTeam.push(compPokemon);
+      console.log("test", compTeam);
+      localStorage.setItem("aiTeam", JSON.stringify(compTeam));
+    });
   }
 }
 
@@ -182,140 +178,134 @@ $("#testMe").on("click", function () {
 //When battle starts, the users pokemon choices will show up on buttons with the pokemons image
 //when the user clicks one of their pokemon choices, a modal it appears on the  "battlefield" div with the user choice pokemon and ai choice pokemon
 //clicking the fight button will determine winner
-var fightBtn = $('<button>')
-var battlefield = $('<div>')
-var userPokemon = $('<div>')
-var computerPokemon = $('<div>')
-var versus = $('<div>')
-var modal = $('<div>')
+var fightBtn = $("<button>");
+var battlefield = $("<div>");
+var userPokemon = $("<div>");
+var computerPokemon = $("<div>");
+var versus = $("<div>");
+var modal = $("<div>");
 var currentUserPokemon = 0;
 var currenCompPokemon = 0;
 
 // Starts the fight from the Battle Preview Screen
-fightBtn.on('click', function(){
-  pokemonBattle()
-  fightBtn.remove()
-  battlefield.remove()
-  userPokemon.remove() 
-  computerPokemon.remove()
-  versus.remove()
-  modal.remove()
+fightBtn.on("click", function () {
+  pokemonBattle();
+  fightBtn.remove();
+  battlefield.remove();
+  userPokemon.remove();
+  computerPokemon.remove();
+  versus.remove();
+  modal.remove();
+});
 
+function battlePreveiw() {
+  var compTeamArr = JSON.parse(localStorage.getItem("aiTeam"));
+  var userTeamArr = JSON.parse(localStorage.getItem("User Team"));
 
-})
+  // User's Pokemon Appears Here
+  userPokemon.css({
+    background: "red",
+    border: "solid",
+    color: "black",
+    height: "245px",
+    width: "245px",
+    float: "left",
+    "text-align": "center",
+  });
+  var userName = $("<h2>");
+  var userImg = $("<img>");
 
-function battlePreveiw () {
-    var compTeamArr = JSON.parse(localStorage.getItem("aiTeam"))
-    var userTeamArr = JSON.parse(localStorage.getItem("User Team"))
+  var userPokeName = userTeamArr[currentUserPokemon].name;
+  userPokeName = userPokeName.charAt(0).toUpperCase() + userPokeName.slice(1);
+  var userPokePic = userTeamArr[currentUserPokemon].image;
 
-    // User's Pokemon Appears Here
-    userPokemon.css({
-        "background": "red",
-        "border": "solid",
-        "color": "black",
-        "height" : "245px",
-        "width": "245px",
-        "float": "left",
-        "text-align": "center",
-    })
-          var userName = $('<h2>')
-          var userImg = $('<img>')
+  userName.text(userPokeName);
+  userImg.attr("src", userPokePic);
+  userImg.css({
+    height: "150px",
+    width: "150px",
+  });
 
-          var userPokeName = userTeamArr[currentUserPokemon].name
-          userPokeName = userPokeName.charAt(0).toUpperCase() + userPokeName.slice(1)
-          var userPokePic = userTeamArr[currentUserPokemon].image
-          
-          userName.text(userPokeName)
-          userImg.attr("src", userPokePic)
-          userImg.css({
-            "height": "150px",
-            "width" : "150px",
-           })
+  userPokemon.append(userName);
+  userPokemon.append(userImg);
 
-    userPokemon.append(userName)
-    userPokemon.append(userImg)
+  // Computer Pokemon Appears here
+  computerPokemon.css({
+    background: "white",
+    border: "solid",
+    color: "black",
+    height: "245px",
+    width: "245px",
+    float: "right",
+    "text-align": "center",
+  });
 
-    // Computer Pokemon Appears here
-    computerPokemon.css({
-        "background": "white",
-        "border": "solid",
-        "color" : "black",
-        "height" : "245px",
-        "width": "245px",
-        "float": "right",
-        "text-align": "center"
-    })
-    
-          var aiName = $('<h2>')
-          var aiImg = $('<img>')
+  var aiName = $("<h2>");
+  var aiImg = $("<img>");
 
-          var aiPokeName = compTeamArr[currenCompPokemon].name
-          var aiPokePic = compTeamArr[currenCompPokemon].image
+  var aiPokeName = compTeamArr[currenCompPokemon].name;
+  var aiPokePic = compTeamArr[currenCompPokemon].image;
 
-          aiName.text(aiPokeName)
-          aiImg.attr("src",aiPokePic)
-          aiImg.css({
-            "height": "150px",
-            "width" : "150px",
-          })
-    
-    computerPokemon.append(aiName)
-    computerPokemon.append(aiImg)
+  aiName.text(aiPokeName);
+  aiImg.attr("src", aiPokePic);
+  aiImg.css({
+    height: "150px",
+    width: "150px",
+  });
 
+  computerPokemon.append(aiName);
+  computerPokemon.append(aiImg);
 
-    // Black Box between the two pokemon
-    versus.css({
-        "background" : "black",
-        "border": "solid",
-        "border-color": "black",
-        "color" : "white",
-        "width" : "45px",
-        "height": "125px",
-        "float" : "left",
-        "padding-top" : "120px",
-        "text-align": "center"
-    })
-    versus.text("VS")
+  // Black Box between the two pokemon
+  versus.css({
+    background: "black",
+    border: "solid",
+    "border-color": "black",
+    color: "white",
+    width: "45px",
+    height: "125px",
+    float: "left",
+    "padding-top": "120px",
+    "text-align": "center",
+  });
+  versus.text("VS");
 
-    // Button to Initiate Fight Function
-    fightBtn.text("Fight!")
-    fightBtn.css({
-      "width": "550px",
-      "text-align": "Center",
-      "border" : "solid",
-    })
-    
+  // Button to Initiate Fight Function
+  fightBtn.text("Fight!");
+  fightBtn.css({
+    width: "550px",
+    "text-align": "Center",
+    border: "solid",
+  });
 
+  // Holds the Pokemon Facing each other
+  battlefield.css({
+    background: "grey",
+    height: "200px",
+    width: "550px",
+    "z-index": "2",
+    "margin-top": "16%",
+    "margin-left": "32%",
+  });
 
-    // Holds the Pokemon Facing each other
-    battlefield.css({
-        "background" : "grey",
-        "height": "200px",
-        "width": "550px",
-        "z-index" : "2",
-        "margin-top": "16%",
-        "margin-left": "32%"
+  // Greys out behind it
+  modal.css({
+    position: "fixed",
+    top: "0",
+    left: "0",
+    height: "100%",
+    width: "100%",
+    background: "rgba(0,0,0,0.4)",
+  });
 
-    })
+  battlefield.append(userPokemon);
+  battlefield.append(versus);
+  battlefield.append(computerPokemon);
+  battlefield.append(fightBtn);
 
-    // Greys out behind it
-    modal.css({
-      "position" : "fixed",
-      "top" : "0",
-      "left" : "0",
-      "height" : "100%",
-      "width" : "100%",
-      "background": "rgba(0,0,0,0.4)"
-    })
+  modal.append(battlefield);
 
-    battlefield.append(userPokemon)
-    battlefield.append(versus)
-    battlefield.append(computerPokemon)
-    battlefield.append(fightBtn)
-
-    modal.append(battlefield)
-    
-    $('body').append(modal)
+  $("body").append(modal);
 }
 
 //task 6:
@@ -327,113 +317,103 @@ function battlePreveiw () {
 //when a pokemon is KO'd, both sides are able to pick a new pokemon (AI picks random from choices), the defeated pokemon will be removed from that teams choices. The winners pokemon is not removed.
 
 // Starts the battle
-var attackCounter = 1
+var attackCounter = 1;
 
-function pokemonBattle(){
-  var userPokemon = JSON.parse(localStorage.getItem("User Team"))
-  var computerPokemon = JSON.parse(localStorage.getItem("aiTeam"))
+function pokemonBattle() {
+  var userPokemon = JSON.parse(localStorage.getItem("User Team"));
+  var computerPokemon = JSON.parse(localStorage.getItem("aiTeam"));
 
-  var pokemon1 = userPokemon[currentUserPokemon]
-  var pokemon2 = computerPokemon[currenCompPokemon]
-  attackCounter = 1
+  var pokemon1 = userPokemon[currentUserPokemon];
+  var pokemon2 = computerPokemon[currenCompPokemon];
+  attackCounter = 1;
 
-  console.log(pokemon1)
-  console.log(pokemon2)
-  
   // Compares Pokemon's Speed and Decides who attacks
-  if (pokemon1.speed > pokemon2.speed){
-    console.log("Pokemon 1 is faster")
-    pokeAttack(pokemon1, pokemon2)
+  if (pokemon1.speed > pokemon2.speed) {
+    console.log("Pokemon 1 is faster");
+    pokeAttack(pokemon1, pokemon2);
   } else {
-    console.log("Pokemon 2 is faster")
-    pokeAttack(pokemon2, pokemon1)
+    console.log("Pokemon 2 is faster");
+    pokeAttack(pokemon2, pokemon1);
   }
-  
 }
-
 
 // Decides the winner
-function pokeAttack (attacker, defender){
-  console.log(attackCounter)
-  if (attackCounter < 2){
-  if (attacker.attack > defender.defense) {
-    console.log("attacker wins")
-    winScreen(attacker)
-
+function pokeAttack(attacker, defender) {
+  console.log(attackCounter);
+  if (attackCounter < 2) {
+    if (attacker.attack > defender.defense) {
+      console.log("attacker wins");
+      winScreen(attacker);
+    } else {
+      console.log("attacker loses");
+      pokeAttack(defender, attacker);
+      attackCounter++;
+    }
+  } else if (attacker.base_exp > defender.base_exp) {
+    winScreen(attacker);
   } else {
-    console.log('attacker loses')
-    pokeAttack(defender, attacker)
-    attackCounter++
-    
+    winScreen(defender);
   }
-} else if (attacker.base_exp > defender.base_exp){
-  winScreen(attacker)
-} else {
-  winScreen(defender)
 }
-
-}
-
 
 // Displays the Winner
-function winScreen(winner){
-  var winnerPokemon = $('<div>')
-  var modal = $('<div>')
-  var winImg = $('<img>')
-  var pokeWinner = $('<h2>')
-  
+function winScreen(winner) {
+  var winnerPokemon = $("<div>");
+  var modal = $("<div>");
+  var winImg = $("<img>");
+  var pokeWinner = $("<h2>");
 
   // Box that holds Winner Pokemon Name and Image
   winnerPokemon.css({
-    "background": "red",
-    "border": "solid",
-    "color": "black",
-    "height" : "260px",
-    "width": "245px",
+    background: "red",
+    border: "solid",
+    color: "black",
+    height: "260px",
+    width: "245px",
     "text-align": "center",
     "z-index": "2",
     "margin-top": "16%",
     "margin-left": "32%",
-})
+  });
 
-  var winnerName = winner.name
+  var winnerName = winner.name;
   winnerName = winnerName.charAt(0).toUpperCase() + winnerName.slice(1);
-  var winnerPic = winner.image
+  var winnerPic = winner.image;
 
-    pokeWinner.text(winnerName + " wins!")
-    winImg.attr("src", winnerPic)
-    winImg.css({
-      "height": "200px",
-      "width" : "200px",
-    })
-  
-  winnerPokemon.append(pokeWinner)
-  winnerPokemon.append(winImg)
+  pokeWinner.text(winnerName + " wins!");
+  winImg.attr("src", winnerPic);
+  winImg.css({
+    height: "200px",
+    width: "200px",
+  });
 
+  winnerPokemon.append(pokeWinner);
+  winnerPokemon.append(winImg);
 
   modal.css({
-    "position" : "fixed",
-    "top" : "0",
-    "left" : "0",
-    "height" : "100%",
-    "width" : "100%",
-    "background": "rgba(0,0,0,0.4)"
-  })
+    position: "fixed",
+    top: "0",
+    left: "0",
+    height: "100%",
+    width: "100%",
+    background: "rgba(0,0,0,0.4)",
+  });
 
-  modal.append(winnerPokemon)
-  $('body').append(modal)
-  
+  modal.append(winnerPokemon);
+  modal.append(nextBattle);
+  $("body").append(modal);
 
-  console.log(winner.name, " wins!")
+  console.log(winner.name, " wins!");
 }
 
+nextBattle.on("click", function () {
+  console.log("button CLICKED:", nextBattle);
+  battlePreveiw();
+});
+//task 7:
 
-  //task 7:
-
-  //A game winner is determined when either side runs out of pokemon.
-  //If the user wins, they are presented with a congratulatory winning message (modal or new page) that tells them to go do something else using BoredAPI ("You totally rock at battling, how should go " + api input + " instead")
-  //If the user loses, they are presented with a loser message telling them to go do something else using BoredAPI (EX: "You suck at battling, how about you go " + api input + " instead" )
-  //along with the users win/lose message, they will be presented with a replay button which will restart the game.
-  function endGame(){
-    
-  }
+//A game winner is determined when either side runs out of pokemon.
+//If the user wins, they are presented with a congratulatory winning message (modal or new page) that tells them to go do something else using BoredAPI ("You totally rock at battling, how should go " + api input + " instead")
+//If the user loses, they are presented with a loser message telling them to go do something else using BoredAPI (EX: "You suck at battling, how about you go " + api input + " instead" )
+//along with the users win/lose message, they will be presented with a replay button which will restart the game.
+function endGame() {}
