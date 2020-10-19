@@ -189,8 +189,18 @@ var nextBattle =$('<button>')
 nextBattle.text("Next Battle!")
 var currentUserPokemon = 0;
 var currenCompPokemon = 0;
-var nextBattle = $("<button>");
-nextBattle.text("Next Battle!");
+
+fightBtn.on("click", function(){
+  pokemonBattle()
+  battlefield.remove()
+  userPokemon.remove()
+  userPokemon.empty()
+  computerPokemon.remove()
+  computerPokemon.empty()
+  versus.remove()
+  modal.remove()
+
+})
 
 function battlePreveiw() {
   var compTeamArr = JSON.parse(localStorage.getItem("aiTeam"));
