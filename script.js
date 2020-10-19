@@ -184,14 +184,11 @@ var userPokemon = $("<div>");
 var computerPokemon = $("<div>");
 var versus = $("<div>");
 var modal = $("<div>");
-var nextBattle = $("<button>");
-nextBattle.addClass("next-battle-button");
-nextBattle.text("Next battle!");
+var currentUserPokemon = 0;
+var currenCompPokemon = 0;
 
 // Starts the fight from the Battle Preview Screen
 fightBtn.on("click", function () {
-  userPokemon.empty();
-  computerPokemon.empty();
   pokemonBattle();
   fightBtn.remove();
   battlefield.remove();
@@ -204,9 +201,6 @@ fightBtn.on("click", function () {
 function battlePreveiw() {
   var compTeamArr = JSON.parse(localStorage.getItem("aiTeam"));
   var userTeamArr = JSON.parse(localStorage.getItem("User Team"));
-  var randomTeamPokemon = Math.floor(
-    Math.random() * Math.floor(compTeamArr.length)
-  );
 
   // User's Pokemon Appears Here
   userPokemon.css({
@@ -221,8 +215,9 @@ function battlePreveiw() {
   var userName = $("<h2>");
   var userImg = $("<img>");
 
-  var userPokeName = userTeamArr[0].name;
-  var userPokePic = userTeamArr[0].image;
+  var userPokeName = userTeamArr[currentUserPokemon].name;
+  userPokeName = userPokeName.charAt(0).toUpperCase() + userPokeName.slice(1);
+  var userPokePic = userTeamArr[currentUserPokemon].image;
 
   userName.text(userPokeName);
   userImg.attr("src", userPokePic);
@@ -247,11 +242,9 @@ function battlePreveiw() {
 
   var aiName = $("<h2>");
   var aiImg = $("<img>");
-  var challenger = randomTeamPokemon;
-  localStorage.setItem("opposingPokemon", challenger);
 
-  var aiPokeName = compTeamArr[challenger].name;
-  var aiPokePic = compTeamArr[challenger].image;
+  var aiPokeName = compTeamArr[currenCompPokemon].name;
+  var aiPokePic = compTeamArr[currenCompPokemon].image;
 
   aiName.text(aiPokeName);
   aiImg.attr("src", aiPokePic);
@@ -324,16 +317,15 @@ function battlePreveiw() {
 //when a pokemon is KO'd, both sides are able to pick a new pokemon (AI picks random from choices), the defeated pokemon will be removed from that teams choices. The winners pokemon is not removed.
 
 // Starts the battle
+var attackCounter = 1;
+
 function pokemonBattle() {
   var userPokemon = JSON.parse(localStorage.getItem("User Team"));
   var computerPokemon = JSON.parse(localStorage.getItem("aiTeam"));
-  var challenger = localStorage.getItem("opposingPokemon");
 
-  var pokemon1 = userPokemon[0];
-  var pokemon2 = computerPokemon[challenger];
-
-  console.log(pokemon1);
-  console.log(pokemon2);
+  var pokemon1 = userPokemon[currentUserPokemon];
+  var pokemon2 = computerPokemon[currenCompPokemon];
+  attackCounter = 1;
 
   // Compares Pokemon's Speed and Decides who attacks
   if (pokemon1.speed > pokemon2.speed) {
@@ -347,12 +339,20 @@ function pokemonBattle() {
 
 // Decides the winner
 function pokeAttack(attacker, defender) {
-  if (attacker.attack > defender.defense) {
-    console.log("attacker wins");
+  console.log(attackCounter);
+  if (attackCounter < 2) {
+    if (attacker.attack > defender.defense) {
+      console.log("attacker wins");
+      winScreen(attacker);
+    } else {
+      console.log("attacker loses");
+      pokeAttack(defender, attacker);
+      attackCounter++;
+    }
+  } else if (attacker.base_exp > defender.base_exp) {
     winScreen(attacker);
   } else {
-    console.log("attacker loses");
-    pokeAttack(defender, attacker);
+    winScreen(defender);
   }
 }
 
