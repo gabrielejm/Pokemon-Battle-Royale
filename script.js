@@ -190,7 +190,8 @@ nextBattle.text("Next Battle!")
 var currentUserPokemon = 0;
 var currenCompPokemon = 0;
 
-fightBtn.on("click", function(){
+fightBtn.each(function(){
+$(this).on("click", function(){
   pokemonBattle()
   battlefield.remove()
   userPokemon.remove()
@@ -199,7 +200,7 @@ fightBtn.on("click", function(){
   computerPokemon.empty()
   versus.remove()
   modal.remove()
-
+})
 })
 
 function battlePreveiw() {
@@ -349,11 +350,15 @@ function pokeAttack(attacker, defender) {
      console.log("attacker wins");
      winScreen(attacker);
      // Faster Pokemon wins, determines if winner is computer or user
-     if (attacker.name === userPokemon[currenCompPokemon].name){
+     if (attacker.name === userPokemon[currentUserPokemon].name){
 
        currenCompPokemon++
+       console.log("User Number ", currentUserPokemon)
+      console.log("Comp Number ", currenCompPokemon)
      } else if (attacker.name === computerPokemon[currenCompPokemon].name){
        currentUserPokemon++
+       console.log("User Number ", currentUserPokemon)
+      console.log("Comp Number ", currenCompPokemon)
      }
    } else {
      console.log("attacker loses");
@@ -364,32 +369,48 @@ function pokeAttack(attacker, defender) {
 
 // If attacker is unable to win, Defender attacks and ties are broken here. 
 function pokeAttack2(attacker, defender) {
-  
+  var userPokemon = JSON.parse(localStorage.getItem("User Team"));
+  var computerPokemon = JSON.parse(localStorage.getItem("aiTeam"));
+
   if (attacker.attack > defender.defense) {
     console.log("attacker wins");
     winScreen(attacker);
     // Slower Pokemon wins, determines if pokemon is user or computer
-    if (attacker.name === userPokemon[currentuserPokemon].name){
-      currenComPokemon++
+    if (attacker.name === userPokemon[currentUserPokemon].name){
+      currenCompPokemon++
+      console.log("User Number ", currentUserPokemon)
+      console.log("Comp Number ", currenCompPokemon)
     } else if (attacker.name === computerPokemon[currenCompPokemon].name){
       currentUserPokemon++
+      console.log("User Number ", currentUserPokemon)
+      console.log("Comp Number ", currenCompPokemon)
     }
+  
   } else if (attacker.base_exp < defender.base_exp || attacker.base_exp === defender.base_exp) {
     console.log(attacker.name + " has less exp than " + defender.name)
     winScreen(defender)
     // If there is a tie, pokemon with less base_exp loses and is determined if it's a user or computer pokemon
-    if (attacker.name === userPokemon[currenCompPokemon].name){
+    if (attacker.name === computerPokemon[currenCompPokemon].name){
       currenCompPokemon++
-    } else if (attacker.name === computerPokemon[currentUserPokemon].name){
+      console.log("User Number ", currentUserPokemon)
+      console.log("Comp Number ", currenCompPokemon)
+    } else if (attacker.name === userPokemon[currentUserPokemon].name){
       currentUserPokemon++
+      console.log("User Number ", currentUserPokemon)
+      console.log("Comp Number ", currenCompPokemon)
     }
+  
   } else {
     console.log(defender.name + " has less exp than " + attacker.name)
     winScreen(attacker)
     if (attacker.name === userPokemon[currentUserPokemon].name){
       currenCompPokemon++
+      console.log("User Number ", currentUserPokemon)
+      console.log("Comp Number ", currenCompPokemon)
     } else if (attacker.name === computerPokemon[currenCompPokemon].name){
       currentUserPokemon++
+      console.log("User Number ", currentUserPokemon)
+      console.log("Comp Number ", currenCompPokemon)
     }
   }
 }
