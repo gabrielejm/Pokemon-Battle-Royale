@@ -60,6 +60,7 @@ $("#add-button").on("click", function () {
       "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/" +
       g_currentpokemon.id +
       ".png",
+    attacked: false,
   };
 
   userTeam.push(pokemoninfo);
@@ -158,6 +159,7 @@ function compTeamCreator() {
         speed: speed,
         base_exp: baseEXP,
         image: image,
+        attacked: false,
       };
 
       // Creates Team and pushes results to Local Storage for later calls
@@ -184,6 +186,8 @@ var userPokemon = $("<div>");
 var computerPokemon = $("<div>");
 var versus = $("<div>");
 var modal = $("<div>");
+var nextBattle =$('<button>')
+nextBattle.text("Next Battle!")
 var currentUserPokemon = 0;
 var currenCompPokemon = 0;
 
@@ -194,6 +198,8 @@ fightBtn.on("click", function () {
   battlefield.remove();
   userPokemon.remove();
   computerPokemon.remove();
+  userPokemon.empty()
+  computerPokemon.empty()
   versus.remove();
   modal.remove();
 });
@@ -317,7 +323,6 @@ function battlePreveiw() {
 //when a pokemon is KO'd, both sides are able to pick a new pokemon (AI picks random from choices), the defeated pokemon will be removed from that teams choices. The winners pokemon is not removed.
 
 // Starts the battle
-var attackCounter = 1;
 
 function pokemonBattle() {
   var userPokemon = JSON.parse(localStorage.getItem("User Team"));
@@ -325,10 +330,10 @@ function pokemonBattle() {
 
   var pokemon1 = userPokemon[currentUserPokemon];
   var pokemon2 = computerPokemon[currenCompPokemon];
-  attackCounter = 1;
 
+  
   // Compares Pokemon's Speed and Decides who attacks
-  if (pokemon1.speed > pokemon2.speed) {
+  if (pokemon1.speed > pokemon2.speed || pokemon1.speed === pokemon2.speed) {
     console.log("Pokemon 1 is faster");
     pokeAttack(pokemon1, pokemon2);
   } else {
@@ -339,20 +344,29 @@ function pokemonBattle() {
 
 // Decides the winner
 function pokeAttack(attacker, defender) {
-  console.log(attackCounter);
-  if (attackCounter < 2) {
-    if (attacker.attack > defender.defense) {
-      console.log("attacker wins");
-      winScreen(attacker);
-    } else {
-      console.log("attacker loses");
-      pokeAttack(defender, attacker);
-      attackCounter++;
-    }
-  } else if (attacker.base_exp > defender.base_exp) {
+   
+   if (attacker.attack > defender.defense) {
+     console.log("attacker wins");
+     winScreen(attacker);
+   } else {
+     console.log("attacker loses");
+     pokeAttack2(defender, attacker);
+     
+   }
+}
+
+// If attacker is unable to win, Defender attacks and ties are broken here. 
+function pokeAttack2(attacker, defender) {
+   
+  if (attacker.attack > defender.defense) {
+    console.log("attacker wins");
     winScreen(attacker);
+  } else if (attacker.base_exp < defender.base_exp || attacker.base_exp === defender.base_exp) {
+    console.log(attacker.name + " has less exp than " + defender.name)
+    winScreen(defender)
   } else {
-    winScreen(defender);
+    console.log(defender.name + " has less exp than " + attacker.name)
+    winScreen(attacker)
   }
 }
 
