@@ -277,6 +277,7 @@ function battlePreveiw() {
     width: "550px",
     "text-align": "Center",
     border: "solid 5px black",
+    "margin-top": "10px",
   });
 
   // Holds the Pokemon Facing each other
