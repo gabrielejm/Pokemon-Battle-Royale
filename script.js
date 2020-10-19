@@ -181,9 +181,10 @@ nextBattle.text("Next Battle!")
 var currentUserPokemon = 0;
 var currenCompPokemon = 0;
 
-$("document").on("click", ".fightBtn", function(){
+$(document).on("click", ".fightBtn", function(){
   console.log("button click inside $(this)")
   pokemonBattle()
+  battlefield.empty()
   battlefield.remove()
   userPokemon.remove()
   userPokemon.empty()
@@ -339,21 +340,17 @@ function pokeAttack(attacker, defender) {
   var computerPokemon = JSON.parse(localStorage.getItem("aiTeam"));
 
    if (attacker.attack > defender.defense) {
-     console.log("attacker wins");
      winScreen(attacker);
      // Faster Pokemon wins, determines if winner is computer or user
      if (attacker.name === userPokemon[currentUserPokemon].name){
 
        currenCompPokemon++
-       console.log("User Number ", currentUserPokemon)
-      console.log("Comp Number ", currenCompPokemon)
      } else if (attacker.name === computerPokemon[currenCompPokemon].name){
        currentUserPokemon++
-       console.log("User Number ", currentUserPokemon)
-      console.log("Comp Number ", currenCompPokemon)
+      
      }
    } else {
-     console.log("attacker loses");
+     
      pokeAttack2(defender, attacker);
      
    }
@@ -365,44 +362,34 @@ function pokeAttack2(attacker, defender) {
   var computerPokemon = JSON.parse(localStorage.getItem("aiTeam"));
 
   if (attacker.attack > defender.defense) {
-    console.log("attacker wins");
     winScreen(attacker);
     // Slower Pokemon wins, determines if pokemon is user or computer
     if (attacker.name === userPokemon[currentUserPokemon].name){
       currenCompPokemon++
-      console.log("User Number ", currentUserPokemon)
-      console.log("Comp Number ", currenCompPokemon)
+      
     } else if (attacker.name === computerPokemon[currenCompPokemon].name){
       currentUserPokemon++
-      console.log("User Number ", currentUserPokemon)
-      console.log("Comp Number ", currenCompPokemon)
+     
     }
   
   } else if (attacker.base_exp < defender.base_exp || attacker.base_exp === defender.base_exp) {
-    console.log(attacker.name + " has less exp than " + defender.name)
     winScreen(defender)
     // If there is a tie, pokemon with less base_exp loses and is determined if it's a user or computer pokemon
     if (attacker.name === computerPokemon[currenCompPokemon].name){
       currenCompPokemon++
-      console.log("User Number ", currentUserPokemon)
-      console.log("Comp Number ", currenCompPokemon)
+     
     } else if (attacker.name === userPokemon[currentUserPokemon].name){
       currentUserPokemon++
-      console.log("User Number ", currentUserPokemon)
-      console.log("Comp Number ", currenCompPokemon)
+      
     }
   
   } else {
-    console.log(defender.name + " has less exp than " + attacker.name)
     winScreen(attacker)
     if (attacker.name === userPokemon[currentUserPokemon].name){
       currenCompPokemon++
-      console.log("User Number ", currentUserPokemon)
-      console.log("Comp Number ", currenCompPokemon)
+      
     } else if (attacker.name === computerPokemon[currenCompPokemon].name){
       currentUserPokemon++
-      console.log("User Number ", currentUserPokemon)
-      console.log("Comp Number ", currenCompPokemon)
     }
   }
 }
@@ -424,7 +411,7 @@ function winScreen(winner) {
     "text-align": "center",
     "z-index": "2",
     "margin-top": "16%",
-    "margin-left": "32%",
+    "margin-left": "42%",
   });
 
   var winnerName = winner.name;
@@ -454,12 +441,18 @@ function winScreen(winner) {
   modal.append(nextBattle);
   $("body").append(modal);
 
-  console.log(winner.name, " wins!");
 }
 
 nextBattle.on("click", function () {
-
+  var win = true
+  var loss = false
+  if (currentUserPokemon === 3){
+    endGame(loss)
+  } else if ( currenCompPokemon === 3){
+    endGame(win)
+  } else {
   battlePreveiw();
+  }
 });
 //task 7:
 
@@ -467,6 +460,11 @@ nextBattle.on("click", function () {
 //If the user wins, they are presented with a congratulatory winning message (modal or new page) that tells them to go do something else using BoredAPI ("You totally rock at battling, how should go " + api input + " instead")
 //If the user loses, they are presented with a loser message telling them to go do something else using BoredAPI (EX: "You suck at battling, how about you go " + api input + " instead" )
 //along with the users win/lose message, they will be presented with a replay button which will restart the game.
-function endGame() {
+function endGame(outcome) {
+  if (outcome === true){
+  alert("You Won")
+  } else {
+    alert("You Lost")
+  }
   window.location.href = "gameover.html";
 }
