@@ -18,8 +18,6 @@ $("#search-btn").on("click", function () {
   }).then(function (response) {
     g_currentpokemon = response;
 
-    console.log("response:", response);
-
     var pokeID = response.id;
     var imageURL =
       "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/" +
@@ -64,7 +62,6 @@ $("#add-button").on("click", function () {
   };
 
   userTeam.push(pokemoninfo);
-  console.log("current team", userTeam);
   localStorage.setItem("User Team", JSON.stringify(userTeam));
   clearPokeSearch();
   $("#input").val("");
@@ -92,10 +89,6 @@ function clearPokeSearch() {
 }
 
 function pokeButtons() {
-  var userpokemon = JSON.parse(localStorage.getItem("User Team"));
-  var poke1 = userpokemon[0].name;
-  var poke2 = userpokemon[1].name;
-  var poke3 = userpokemon[2].name;
   $("#pokename").addClass("hide");
   $("#pokeimage").addClass("hide");
   $("#poketype").addClass("hide");
@@ -163,7 +156,6 @@ function compTeamCreator() {
 
       // Creates Team and pushes results to Local Storage for later calls
       compTeam.push(compPokemon);
-      console.log("test", compTeam);
       localStorage.setItem("aiTeam", JSON.stringify(compTeam));
     });
   }
@@ -179,7 +171,6 @@ $("#testMe").on("click", function () {
 //When battle starts, the users pokemon choices will show up on buttons with the pokemons image
 //when the user clicks one of their pokemon choices, a modal it appears on the  "battlefield" div with the user choice pokemon and ai choice pokemon
 //clicking the fight button will determine winner
-var fightBtn = $("<button>");
 var battlefield = $("<div>");
 var userPokemon = $("<div>");
 var computerPokemon = $("<div>");
@@ -190,8 +181,8 @@ nextBattle.text("Next Battle!")
 var currentUserPokemon = 0;
 var currenCompPokemon = 0;
 
-fightBtn.each(function(){
-$(this).on("click", function(){
+$("document").on("click", ".fightBtn", function(){
+  console.log("button click inside $(this)")
   pokemonBattle()
   battlefield.remove()
   userPokemon.remove()
@@ -201,12 +192,13 @@ $(this).on("click", function(){
   versus.remove()
   modal.remove()
 })
-})
 
 function battlePreveiw() {
   var compTeamArr = JSON.parse(localStorage.getItem("aiTeam"));
   var userTeamArr = JSON.parse(localStorage.getItem("User Team"));
-
+  var fightBtn = $("<button>");
+  fightBtn.addClass('fightBtn')
+  
   // User's Pokemon Appears Here
   userPokemon.css({
     background: "red",
@@ -466,7 +458,7 @@ function winScreen(winner) {
 }
 
 nextBattle.on("click", function () {
-  console.log("button CLICKED:", nextBattle);
+
   battlePreveiw();
 });
 //task 7:
