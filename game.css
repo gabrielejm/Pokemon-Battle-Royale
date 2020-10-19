@@ -2,6 +2,7 @@ body {
     background: white;
     color: red;
     text-align: center;
+    cursor: pointer,
 }
 
 .grid-1 {

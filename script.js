@@ -18,8 +18,6 @@ $("#search-btn").on("click", function () {
   }).then(function (response) {
     g_currentpokemon = response;
 
-    console.log("response:", response);
-
     var pokeID = response.id;
     var imageURL =
       "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/" +
@@ -64,7 +62,6 @@ $("#add-button").on("click", function () {
   };
 
   userTeam.push(pokemoninfo);
-  console.log("current team", userTeam);
   localStorage.setItem("User Team", JSON.stringify(userTeam));
   clearPokeSearch();
   $("#input").val("");
@@ -92,10 +89,6 @@ function clearPokeSearch() {
 }
 
 function pokeButtons() {
-  var userpokemon = JSON.parse(localStorage.getItem("User Team"));
-  var poke1 = userpokemon[0].name;
-  var poke2 = userpokemon[1].name;
-  var poke3 = userpokemon[2].name;
   $("#pokename").addClass("hide");
   $("#pokeimage").addClass("hide");
   $("#poketype").addClass("hide");
@@ -163,7 +156,6 @@ function compTeamCreator() {
 
       // Creates Team and pushes results to Local Storage for later calls
       compTeam.push(compPokemon);
-      console.log("test", compTeam);
       localStorage.setItem("aiTeam", JSON.stringify(compTeam));
     });
   }
@@ -179,7 +171,6 @@ $("#testMe").on("click", function () {
 //When battle starts, the users pokemon choices will show up on buttons with the pokemons image
 //when the user clicks one of their pokemon choices, a modal it appears on the  "battlefield" div with the user choice pokemon and ai choice pokemon
 //clicking the fight button will determine winner
-var fightBtn = $("<button>");
 var battlefield = $("<div>");
 var userPokemon = $("<div>");
 var computerPokemon = $("<div>");
@@ -190,8 +181,10 @@ nextBattle.text("Next Battle!")
 var currentUserPokemon = 0;
 var currenCompPokemon = 0;
 
-fightBtn.on("click", function(){
+$(document).on("click", ".fightBtn", function(){
+  console.log("button click inside $(this)")
   pokemonBattle()
+  battlefield.empty()
   battlefield.remove()
   userPokemon.remove()
   userPokemon.empty()
@@ -199,13 +192,14 @@ fightBtn.on("click", function(){
   computerPokemon.empty()
   versus.remove()
   modal.remove()
-
 })
 
 function battlePreveiw() {
   var compTeamArr = JSON.parse(localStorage.getItem("aiTeam"));
   var userTeamArr = JSON.parse(localStorage.getItem("User Team"));
-
+  var fightBtn = $("<button>");
+  fightBtn.addClass('fightBtn')
+  
   // User's Pokemon Appears Here
   userPokemon.css({
     background: "red",
@@ -346,17 +340,17 @@ function pokeAttack(attacker, defender) {
   var computerPokemon = JSON.parse(localStorage.getItem("aiTeam"));
 
    if (attacker.attack > defender.defense) {
-     console.log("attacker wins");
      winScreen(attacker);
      // Faster Pokemon wins, determines if winner is computer or user
-     if (attacker.name === userPokemon[currenCompPokemon].name){
+     if (attacker.name === userPokemon[currentUserPokemon].name){
 
        currenCompPokemon++
      } else if (attacker.name === computerPokemon[currenCompPokemon].name){
        currentUserPokemon++
+      
      }
    } else {
-     console.log("attacker loses");
+     
      pokeAttack2(defender, attacker);
      
    }
@@ -364,30 +358,36 @@ function pokeAttack(attacker, defender) {
 
 // If attacker is unable to win, Defender attacks and ties are broken here. 
 function pokeAttack2(attacker, defender) {
-  
+  var userPokemon = JSON.parse(localStorage.getItem("User Team"));
+  var computerPokemon = JSON.parse(localStorage.getItem("aiTeam"));
+
   if (attacker.attack > defender.defense) {
-    console.log("attacker wins");
     winScreen(attacker);
     // Slower Pokemon wins, determines if pokemon is user or computer
-    if (attacker.name === userPokemon[currentuserPokemon].name){
-      currenComPokemon++
+    if (attacker.name === userPokemon[currentUserPokemon].name){
+      currenCompPokemon++
+      
     } else if (attacker.name === computerPokemon[currenCompPokemon].name){
       currentUserPokemon++
+     
     }
+  
   } else if (attacker.base_exp < defender.base_exp || attacker.base_exp === defender.base_exp) {
-    console.log(attacker.name + " has less exp than " + defender.name)
     winScreen(defender)
     // If there is a tie, pokemon with less base_exp loses and is determined if it's a user or computer pokemon
-    if (attacker.name === userPokemon[currenCompPokemon].name){
+    if (attacker.name === computerPokemon[currenCompPokemon].name){
       currenCompPokemon++
-    } else if (attacker.name === computerPokemon[currentUserPokemon].name){
+     
+    } else if (attacker.name === userPokemon[currentUserPokemon].name){
       currentUserPokemon++
+      
     }
+  
   } else {
-    console.log(defender.name + " has less exp than " + attacker.name)
     winScreen(attacker)
     if (attacker.name === userPokemon[currentUserPokemon].name){
       currenCompPokemon++
+      
     } else if (attacker.name === computerPokemon[currenCompPokemon].name){
       currentUserPokemon++
     }
@@ -411,7 +411,7 @@ function winScreen(winner) {
     "text-align": "center",
     "z-index": "2",
     "margin-top": "16%",
-    "margin-left": "32%",
+    "margin-left": "42%",
   });
 
   var winnerName = winner.name;
@@ -441,12 +441,18 @@ function winScreen(winner) {
   modal.append(nextBattle);
   $("body").append(modal);
 
-  console.log(winner.name, " wins!");
 }
 
 nextBattle.on("click", function () {
-  console.log("button CLICKED:", nextBattle);
+  var win = true
+  var loss = false
+  if (currentUserPokemon === 3){
+    endGame(loss)
+  } else if ( currenCompPokemon === 3){
+    endGame(win)
+  } else {
   battlePreveiw();
+  }
 });
 //task 7:
 
@@ -454,6 +460,11 @@ nextBattle.on("click", function () {
 //If the user wins, they are presented with a congratulatory winning message (modal or new page) that tells them to go do something else using BoredAPI ("You totally rock at battling, how should go " + api input + " instead")
 //If the user loses, they are presented with a loser message telling them to go do something else using BoredAPI (EX: "You suck at battling, how about you go " + api input + " instead" )
 //along with the users win/lose message, they will be presented with a replay button which will restart the game.
-function endGame() {
+function endGame(outcome) {
+  if (outcome === true){
+  alert("You Won")
+  } else {
+    alert("You Lost")
+  }
   window.location.href = "gameover.html";
 }
