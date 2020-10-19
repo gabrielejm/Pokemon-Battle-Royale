@@ -107,10 +107,6 @@ function pokeButtons() {
 
   $("#poke-button-start").removeClass("hide");
   $("#poke-button-start").html("<button>Start Battle!</button>");
-
-  $("#poke-button-1").html("<button>" + poke1 + "</button>");
-  $("#poke-button-2").html("<button>" + poke2 + "</button>");
-  $("#poke-button-3").html("<button>" + poke3 + "</button>");
 }
 
 $(".pokebutton").on("click", function () {
@@ -188,9 +184,14 @@ var userPokemon = $("<div>");
 var computerPokemon = $("<div>");
 var versus = $("<div>");
 var modal = $("<div>");
+var nextBattle = $("<button>");
+nextBattle.addClass("next-battle-button");
+nextBattle.text("Next battle!");
 
 // Starts the fight from the Battle Preview Screen
 fightBtn.on("click", function () {
+  userPokemon.empty();
+  computerPokemon.empty();
   pokemonBattle();
   fightBtn.remove();
   battlefield.remove();
@@ -399,11 +400,16 @@ function winScreen(winner) {
   });
 
   modal.append(winnerPokemon);
+  modal.append(nextBattle);
   $("body").append(modal);
 
   console.log(winner.name, " wins!");
 }
 
+nextBattle.on("click", function () {
+  console.log("button CLICKED:", nextBattle);
+  battlePreveiw();
+});
 //task 7:
 
 //A game winner is determined when either side runs out of pokemon.
