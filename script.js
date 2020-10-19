@@ -11,7 +11,7 @@ $("#search-btn").on("click", function () {
   event.preventDefault();
   var userInput = $("#input").val();
   var queryURL = "https://pokeapi.co/api/v2/pokemon/" + userInput;
-
+  $("#pokemon-logo").addClass("hide");
   $.ajax({
     url: queryURL,
     method: "GET",
@@ -26,12 +26,12 @@ $("#search-btn").on("click", function () {
     var name2 = response.name;
 
     name2 = name2.charAt(0).toUpperCase() + name2.slice(1);
-    $("#pokename").text(name2);
-    $("#pokeimage").html("<div><img src=" + imageURL + "></div>");
 
     var type = response.types[0].type.name;
-
     type = type.charAt(0).toUpperCase() + type.slice(1);
+
+    $("#pokeimage").html("<div><img src=" + imageURL + "></div>");
+    $("#pokename").text(name2);
     $("#poketype").text(type + " type");
 
     $("#pokeattack").text("Attack stat: " + response.stats[1].base_stat);
@@ -60,7 +60,7 @@ $("#add-button").on("click", function () {
       ".png",
     attacked: false,
   };
-
+  $("#pokemon-logo").removeClass("hide");
   userTeam.push(pokemoninfo);
   localStorage.setItem("User Team", JSON.stringify(userTeam));
   clearPokeSearch();
@@ -183,6 +183,7 @@ var currenCompPokemon = 0;
 
 $(document).on("click", ".fightBtn", function () {
   console.log("button click inside $(this)");
+  nextBattle.removeClass("hide");
   pokemonBattle();
   battlefield.empty();
   battlefield.remove();
@@ -434,6 +435,7 @@ function winScreen(winner) {
 }
 
 nextBattle.on("click", function () {
+  nextBattle.addClass("hide");
   var win = true;
   var loss = false;
   if (currentUserPokemon === 3) {
