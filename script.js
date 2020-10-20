@@ -487,7 +487,6 @@ function endGame(outcome) {
   });
 
   if (outcome === true) {
-    // alert("You Won");
     endScreen.css("background", "green");
     endScreenText.text("You Won!");
     endScreen.append(endScreenText);
@@ -495,7 +494,6 @@ function endGame(outcome) {
     modal.append(endScreen);
     $("body").append(modal);
   } else {
-    // alert("You Lost");
     endScreen.css("background", "yellow");
     endScreenText.text("You Lost!");
     endScreen.append(endScreenText);
