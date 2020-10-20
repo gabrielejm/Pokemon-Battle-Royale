@@ -1,95 +1,121 @@
 body {
-    background: white;
-    color: red;
-    text-align: center;
-    cursor: pointer,
+  background: white;
+  color: red;
+  text-align: center;
+  cursor: pointer;
+}
+
+button {
+  background: red;
+  color: white;
+  border-radius: 3px;
+  margin-right: 20px;
+  border: 5px solid black;
+  margin-top: 5px;
 }
 
 .grid-1 {
-    background: red;
-    margin: 0px auto;            
-    text-align: center;
-    color: white;
-    font-size: 25px;
-    font-weight: bolder;
+  background: red;
+  margin: 0px auto;
+  text-align: center;
+  color: white;
+  font-size: 25px;
+  font-weight: bolder;
 }
 
 .grid-2 {
-     background: black;
-     margin: 0px auto;            
-     text-align: center;
-     color: white;
-     font-size: 25px;
-     font-weight: bolder;
+  background: black;
+  margin: 0px auto;
+  text-align: center;
+  color: white;
+  font-size: 25px;
+  font-weight: bolder;
 }
 
 .beginFight {
-    color: black;
-    text-align: center;
+  color: black;
+  text-align: center;
 }
 
 #searchBar {
-    text-align: center;
-    align-items: center;
+  text-align: center;
+  align-items: center;
 }
 
 #search-btn {
-    background-color: blue;
-    color: white;
-    padding: 15px;
+  background: red;
+  color: white;
+  border-radius: 3px;
+  margin-right: 20px;
+  border: 5px solid black;
+  padding: 10px;
 }
 
 .flex-parent {
-    display: flex;
+  display: flex;
 }
 
 .jc-center {
-    justify-content: center;
+  justify-content: center;
 }
 
 #add-button {
-    justify-content: center;
-    background: green;
-    color: white;
-    padding: 15px;
+  background: red;
+  color: white;
+  border-radius: 3px;
+  margin-right: 20px;
+  border: 5px solid black;
+  padding: 15px;
 }
 
 #cancel-button {
-    justify-content: center;
-    background: red;
-    color: white;
-    padding: 15px;
+  background: red;
+  color: white;
+  border-radius: 3px;
+  margin-right: 20px;
+  border: 5px solid black;
+  padding: 15px;
 }
 
 .hide {
-    display: none;
+  display: none;
 }
 
 .pure-button {
-    margin: 5px;
+  margin: 5px;
 }
 
 #progress {
-    background: black;
-    border-radius: 13px;
-    height: 20px;
-    width: 300px;
-    padding: 3px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 10px;
-    margin-top: 20px;
+  background: black;
+  border-radius: 13px;
+  height: 20px;
+  width: 300px;
+  padding: 3px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+  margin-top: 20px;
 }
 
 #progress:after {
-    content: '';
-    display: block;
-    background: red;
-    width: 50%;
-    height: 100%;
-    border-radius: 9px;
+  content: "";
+  display: block;
+  background: red;
+  width: 50%;
+  height: 100%;
+  border-radius: 9px;
 }
 
 .progressBar {
-    margin-bottom: 40px;
+  margin-bottom: 40px;
+}
+
+#start-battle-button {
+  background: red;
+  color: white;
+  border-radius: 3px;
+  margin-right: 20px;
+  border: 5px solid black;
+  padding: 15px;
+  margin: 15px;
 }
