@@ -502,7 +502,7 @@ function endGame(outcome) {
     $("body").append(modal);
   }
   finishbutton.on("click", function () {
-    window.location.href = "gameover.html";
+    window.location.href = "HTML/gameover.html";
   });
 }
 
@@ -516,7 +516,7 @@ $.ajax({
   var str = response.activity;
   var doSomething = str.toLowerCase();
   $("#gameOverText").html(
-    '<h2 id="bored-api-text">You just had the ultimate Pokémon battling experience! <a href="game.html">Play again,</a> or maybe.... ' +
+    '<h2 id="bored-api-text">You just had the ultimate Pokémon battling experience! <a href="HTML.game.html">Play again,</a> or maybe.... ' +
       doSomething +
       "!"
   );
