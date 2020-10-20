@@ -455,13 +455,57 @@ nextBattle.on("click", function () {
 //If the user wins, they are presented with a congratulatory winning message (modal or new page) that tells them to go do something else using BoredAPI ("You totally rock at battling, how should go " + api input + " instead")
 //If the user loses, they are presented with a loser message telling them to go do something else using BoredAPI (EX: "You suck at battling, how about you go " + api input + " instead" )
 //along with the users win/lose message, they will be presented with a replay button which will restart the game.
+
 function endGame(outcome) {
+  var finishbutton = $("<button>");
+  finishbutton.text("Finish!");
+  var endScreen = $("<div>");
+  var endScreenText = $("<h1>");
+  modal.css({
+    position: "fixed",
+    top: "0",
+    left: "0",
+    height: "100%",
+    width: "100%",
+    background: "rgba(0,0,0,0.4)",
+  });
+  endScreen.css({
+    background: "red",
+    border: "solid",
+    color: "black",
+    height: "260px",
+    width: "245px",
+    "text-align": "center",
+    "z-index": "2",
+    "margin-top": "16%",
+    "margin-left": "42%",
+  });
+
+  finishbutton.css({
+    "margin-top": "25%",
+    "margin-left": "5%",
+  });
+
   if (outcome === true) {
-    alert("You Won");
+    // alert("You Won");
+    endScreen.css("background", "green");
+    endScreenText.text("You Won!");
+    endScreen.append(endScreenText);
+    endScreen.append(finishbutton);
+    modal.append(endScreen);
+    $("body").append(modal);
   } else {
-    alert("You Lost");
+    // alert("You Lost");
+    endScreen.css("background", "yellow");
+    endScreenText.text("You Lost!");
+    endScreen.append(endScreenText);
+    endScreen.append(finishbutton);
+    modal.append(endScreen);
+    $("body").append(modal);
   }
-  window.location.href = "gameover.html";
+  finishbutton.on("click", function () {
+    window.location.href = "gameover.html";
+  });
 }
 
 var boredURL = "https://www.boredapi.com/api/activity/";
