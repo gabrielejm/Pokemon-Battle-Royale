@@ -9,7 +9,7 @@ var g_currentpokemon;
 var userTeam = [];
 $("#search-btn").on("click", function () {
   event.preventDefault();
-  var userInput = $("#input").val();
+  var userInput = $("#input").val().toLowerCase();
   var queryURL = "https://pokeapi.co/api/v2/pokemon/" + userInput;
   $("#pokemon-logo").addClass("hide");
   $.ajax({
